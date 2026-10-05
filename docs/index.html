@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SanSi: A Looped Typed Decision Model for System 1.5 Thinking</title>
+<meta name="description" content="SanSi applies the same layers several times and reads a typed decision after every loop. Follow real test decisions through the loops.">
+<link rel="icon" href="img/sansi_icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<nav class="navbar" id="navbar" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/sansi_icon.png" alt=""><span>SanSi</span></a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Sections"><span></span></button>
+    <div class="nav-links" id="nav-links">
+      <a href="#idea">Idea</a>
+      <a href="#explore">Follow a decision</a>
+      <a href="#results">Results</a>
+      <a href="#loops">Loop by loop</a>
+      <a href="#depth">Reasoning depth</a>
+      <a href="#verifier">As a verifier</a>
+      <a href="#method">Method</a>
+      <a href="#cite">Citation</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <p class="motto"><span lang="zh">三思</span>think thrice</p>
+    <h1>
+      <span class="wordmark"><img src="img/sansi_icon.png" alt=""><span class="name">SanSi</span></span>
+      <span class="sub">A Looped Typed Decision Model for System&nbsp;1.5 Thinking</span>
+    </h1>
+    <p class="authors"><a href="https://shuyugan.github.io/">Shuyu Gan</a><a href="https://passing2961.github.io/">Young-Jun Lee</a><a href="https://dykang.github.io/">Dongyeop Kang</a></p>
+    <p class="affil">University of Minnesota</p>
+    <div class="links">
+      <span class="btn" aria-disabled="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 1.75h5.25L12.5 5v9.25H4z"/><path d="M9 1.75v3.5h3.5M6.25 8.5h4M6.25 11h4"/></svg>Paper <small>coming soon</small></span>
+      <span class="btn" aria-disabled="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 4.5 2 8l3.5 3.5M10.5 4.5 14 8l-3.5 3.5M9 3 7 13"/></svg>Code <small>coming soon</small></span>
+      <span class="btn" aria-disabled="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.75 13.5 4.9v6.2L8 14.25 2.5 11.1V4.9z"/><path d="M2.5 4.9 8 8l5.5-3.1M8 8v6.25"/></svg>Model <small>coming soon</small></span>
+      <a class="btn primary" href="#explore"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.6-3.66"/><path d="M13.25 2.25v3.2h-3.2"/></svg>Follow a decision <b id="n-items"></b></a>
+      <a class="btn" href="#results"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 13.5h11M4.5 11V7.5M8 11V4M11.5 11V6"/></svg>Results</a>
+    </div>
+
+    <figure class="teaser" id="teaser">
+      <div class="tz-card">
+        <div class="tz-grid">
+          <div class="tz-item">
+            <div class="tz-head"><span class="kicker">A test item</span><span class="tags" id="tz-tags"></span></div>
+            <div class="tz-state" id="tz-state"></div>
+            <div class="kicker">Question</div>
+            <div class="tz-q" id="tz-question"></div>
+          </div>
+          <div class="tz-model" id="tz-model"></div>
+          <div class="tz-out">
+            <div class="tz-head"><span class="kicker">Typed answer</span><span class="tz-loop" id="tz-loop"></span></div>
+            <div class="opts" id="tz-opts"></div>
+            <div class="verdict" id="tz-verdict" aria-live="off"></div>
+            <div class="kicker" style="margin-top:0">The answer after every loop</div>
+            <div class="tz-steps" id="tz-steps"></div>
+            <div class="tz-key"><span><i style="background:var(--sansi)"></i>correct</span><span><i style="background:var(--gray-light)"></i>wrong</span></div>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <span class="cap">Real test items followed through the eight loops of SanSi: the five examples of the paper, with the probabilities of training seed 0. The same 24 layers are applied again in every loop, and the probability of every option is read after each one. <span id="tz-what"></span></span>
+        <span class="tz-ctl"><span class="tz-dots" id="tz-dots"></span><button class="motion" id="tz-toggle" type="button"></button></span>
+      </figcaption>
+    </figure>
+  </div>
+</header>
+
+<main>
+
+<section id="idea">
+  <div class="wrap">
+    <div class="idea-grid">
+      <div>
+        <h2>Between one pass and generated reasoning</h2>
+        <p class="lead">A typed decision model answers a declared question without generating text: a decision head returns a probability for each of the declared options in a single forward pass. A single pass is fast, intuitive System&nbsp;1 thinking: every decision receives the same amount of computation, however hard it is.</p>
+        <p>SanSi studies what lies between one pass and generated reasoning: <em>looping</em>, in which the same layers are applied several times before one typed readout. Each loop lets the model revise its hidden state before it commits to an answer, without generating a token; we call this System&nbsp;1.5 thinking. The option probabilities are read after every loop, so one model serves every budget from one loop to eight in a single run.</p>
+      </div>
+      <figure>
+        <img src="img/fig_systems.png" alt="Three ways to spend computation on a decision: a single pass gives one typed answer; SanSi applies the same layers T times and gives a typed answer after every loop; generated reasoning makes one pass per token and returns text.">
+        <figcaption>Three ways to spend computation on a decision. The bars are the option probabilities of one test item (blue: the correct option); the text in the last row is illustrative.</figcaption>
+      </figure>
+    </div>
+    <div class="motto-card">
+      <span class="han" lang="zh" aria-hidden="true">三思</span>
+      <p>SanSi is the pinyin of 三思, “think thrice”, from the Analects: “Ji Wenzi thought thrice before acting.” Confucius is said to have replied that twice would do. In our data the second loop brings 62% of the gain, and the third brings it to 88%.</p>
+    </div>
+  </div>
+</section>
+
+<section id="explore">
+  <div class="wrap">
+    <div class="narrow">
+      <h2>Follow a decision through the loops</h2>
+      <p>These are real test items with the probabilities that SanSi gives to every option after each of its eight loops. Move the slider, or press play. Below the options are the answers of three single-pass models that were trained on the same data.</p>
+    </div>
+    <div class="explorer" id="explorer">
+      <div class="ex-top">
+        <div class="ex-filters">
+          <div class="field"><span class="fname">What the loops did</span><select id="ex-group" aria-label="What the loops did"></select></div>
+          <div class="field"><span class="fname">Item type</span><select id="ex-type" aria-label="Item type"></select></div>
+        </div>
+        <div class="ex-nav">
+          <button class="ctl" id="ex-prev" type="button" aria-label="Previous item">‹ Previous</button>
+          <span class="count" id="ex-count"></span>
+          <button class="ctl" id="ex-next" type="button" aria-label="Next item">Next ›</button>
+        </div>
+      </div>
+      <div class="ex-body">
+        <div class="ex-item">
+          <div class="tags" id="ex-tags"></div>
+          <div class="kicker">Text</div>
+          <div class="state" id="ex-state" tabindex="0"></div>
+          <div class="kicker">Question</div>
+          <div class="question" id="ex-question"></div>
+          <div class="kicker" style="margin-top:18px">Probability of every option, loop by loop</div>
+          <div id="ex-traj"></div>
+        </div>
+        <div class="ex-out">
+          <div class="loopctl">
+            <span class="now" id="ex-now">Loop 1</span>
+            <input type="range" id="ex-loop" min="1" max="8" step="1" value="1" aria-label="Loop">
+            <button class="ctl go" id="ex-play" type="button">Play</button>
+          </div>
+          <div class="ticks" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+          <div class="opts" id="ex-opts"></div>
+          <div class="verdict" id="ex-verdict" aria-live="polite"></div>
+          <div class="one" id="ex-one"></div>
+        </div>
+      </div>
+    </div>
+    <p class="note" id="ex-note"></p>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap">
+    <div class="narrow">
+      <h2>What looping buys, and what it costs</h2>
+      <p>We compare SanSi with single-pass models that are fine-tuned on the same items with the same recipe. The controlled comparison is with SmolLM2-1.7B, which has the same shape (24 layers, hidden size 2,048) and makes one pass where SanSi makes eight. The Qwen3.5 models are newer and larger references, and Kev-4B (our data) is the larger of them trained on our data with Kev's own code. The gain of looping is paid in computation, not in parameters.</p>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <div class="two">
+      <div class="card">
+        <h4>Accuracy against parameters</h4>
+        <p class="sub">10,027 test decisions. Single-pass models gain accuracy with parameters; SanSi gains it by looping the same parameters. The Jev API was not trained on our data.</p>
+        <div id="ch-size"></div>
+      </div>
+      <div class="card">
+        <h4>Accuracy against computation</h4>
+        <p class="sub">GPU time of one pass over the test set; one loop of the 1.4B backbone is 1.</p>
+        <div id="ch-cost"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>The main comparison</h4>
+      <p class="sub">10,027 test items; mean ± standard deviation over three training seeds. All models are fine-tuned on the same data. Columns All to Far: accuracy (%) on all test items and by distance from the training data. Cost: GPU time of one pass over the test set, relative to one loop of the 1.4B backbone, on one RTX A6000.</p>
+      <div class="scroll" id="tbl-main"></div>
+    </div>
+    <div class="narrow">
+      <h3>Where the gain is largest</h3>
+      <p>The gain is not the same for every kind of decision. It is smallest on classification, where one pass is already enough, and large where a decision has to bring several pieces of information together.</p>
+    </div>
+    <div class="card">
+      <h4>Accuracy by item type</h4>
+      <p class="sub">Ordered by the gain of SanSi at loop 8 over SmolLM2-1.7B (points, on the right).</p>
+      <div id="ch-types"></div>
+    </div>
+    <div class="narrow">
+      <h3>Kev on our data, and released models</h3>
+      <p id="kev-text"></p>
+      <p id="kev-text2"></p>
+    </div>
+    <div class="card">
+      <h4>Accuracy on the test items that neither side trained on</h4>
+      <p class="sub">Far transfer and JevBench. Bars through the marks: one standard deviation over three seeds; the released models are single runs.</p>
+      <div id="ch-neither"></div>
+    </div>
+  </div>
+</section>
+
+<section id="loops">
+  <div class="wrap">
+    <div class="narrow">
+      <h2>Loop by loop</h2>
+      <p>Because every loop is read, the same test run shows what each loop adds. Most of the accuracy comes from the second and the third loop. The probabilities move differently: confidence keeps rising after the answers have settled, so calibration is best around the third loop, while the model gets steadily better at noticing that the evidence for a decision is missing.</p>
+    </div>
+    <div class="filters">
+      <div class="field"><span class="fname">Measure</span><select id="pl-metric" aria-label="Measure"></select></div>
+      <div class="field"><span class="fname">Test items</span><select id="pl-group" aria-label="Test items"></select></div>
+    </div>
+    <div class="card">
+      <h4 id="pl-title"></h4>
+      <p class="sub" id="pl-sub"></p>
+      <div id="ch-perloop"></div>
+    </div>
+
+    <div class="narrow">
+      <h3>Answers fixed and broken</h3>
+      <p>The gain in accuracy is the net result of two opposite effects: a loop fixes some answers and breaks others. An answer that settles late is also less often right.</p>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h4>Changed since loop 1</h4>
+        <p class="sub">Share of the 9,645 answerable items whose answer at loop T is right where loop 1 was wrong (fixed), or wrong where loop 1 was right (broken).</p>
+        <div id="ch-fixed"></div>
+      </div>
+      <div class="card">
+        <h4>When answers settle, and how often they are right</h4>
+        <p class="sub">Bars: share of answers that settle at each loop. Line: share of those answers that are right at loop 8.</p>
+        <div id="ch-settle"></div>
+      </div>
+    </div>
+
+    <div class="narrow">
+      <h3>More loops than trained</h3>
+      <p>A looped decision model can be read after fewer loops than it was trained with, but not after more: beyond the trained loops the accuracy declines.</p>
+    </div>
+    <div class="card">
+      <h4>Running a model beyond the loops it was trained with</h4>
+      <p class="sub">Accuracy on the 10,027 test items. Hollow markers: loops that were not trained.</p>
+      <div id="ch-nloops"></div>
+    </div>
+  </div>
+</section>
+
+<section id="depth">
+  <div class="wrap">
+    <div class="narrow">
+      <h2>Reasoning depth</h2>
+      <p>Two program-generated tasks isolate reasoning depth: every item needs exactly <em>k</em> dependent steps. In a <em>liar chain</em>, each person says that another person tells the truth or lies; in <em>object swaps</em>, five people swap objects in pairs. The models are trained on depths 1 to 8 and tested up to depth 16. Each loop lets SanSi follow a longer chain, beyond the depths seen in training, and a single-pass model with three times the parameters stays between its first and its second loop.</p>
+    </div>
+    <div class="filters">
+      <div class="field"><span class="fname">Task</span><select id="dp-task" aria-label="Task"></select></div>
+      <label class="field"><span class="fname">SanSi read after loop</span><input type="range" id="dp-loop" min="1" max="16" step="1" value="8" aria-label="Loop"> <b class="pill" id="dp-now">8</b></label>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h4 id="dp-title">Accuracy by depth</h4>
+        <p class="sub" id="dp-sub"></p>
+        <div id="ch-depth"></div>
+      </div>
+      <div class="card">
+        <h4>Every loop and every depth</h4>
+        <p class="sub">Accuracy of SanSi above chance. The outlined row is the loop selected on the left (click a row to select it). The white lines mark the end of the trained depths and of the trained loops, both at 8.</p>
+        <div id="ch-heat"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="verifier">
+  <div class="wrap">
+    <div class="narrow">
+      <h2>SanSi as a verifier</h2>
+      <p>Typed decision models are increasingly used to judge the outputs of other models. Here SanSi provides the only reward for training a generator with reinforcement learning on multi-hop questions, without gold answers. The only thing that varies is the loop at which SanSi is read. With one loop the generator is damaged; with four or eight it improves.</p>
+    </div>
+    <div class="card">
+      <h4>F1 of the generator after training, by the loop at which SanSi is read</h4>
+      <p class="sub">3,000 test questions of 2WikiMultiHopQA. Large dots: mean of three training runs; small dots: the runs.</p>
+      <div id="ch-verifier"></div>
+    </div>
+  </div>
+</section>
+
+<section id="method" class="method">
+  <div class="wrap">
+    <div class="narrow">
+      <h2>How it works</h2>
+      <p>SanSi is built on a language model that was pre-trained to loop (Ouro-1.4B). The backbone stays frozen. We train LoRA adapters and one small readout per loop, 61M parameters in total, and train every loop towards the target distribution with two proper scoring rules (cross-entropy and the Brier score).</p>
+    </div>
+    <div class="two method-figs">
+      <figure><img src="img/fig_model_train.png" alt="Training: one stack of 24 layers is applied T times; after every loop the option probabilities are read and trained towards the target."><figcaption>Training: one stack of 24 layers is applied <em>T</em> times; after every loop the option probabilities are read and trained.</figcaption></figure>
+      <figure><img src="img/fig_model_test.png" alt="Test time: a test item followed through the loops; the first loop prefers the wrong option, the later loops the correct one."><figcaption>Test time: one item followed through the loops. The first loop prefers the wrong option, the later loops the correct one.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="cite">
+  <div class="wrap">
+    <h2>Citation</h2>
+    <div class="bibcard narrow">
+      <div class="bibhead"><span>BibTeX</span><button class="ctl" id="bib-copy" type="button">Copy</button></div>
+<pre class="bib" id="bib">@article{gan2026sansi,
+  title  = {SanSi: A Looped Typed Decision Model for System 1.5 Thinking},
+  author = {Gan, Shuyu and Lee, Young-Jun and Kang, Dongyeop},
+  year   = {2026}
+}</pre>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/sansi_icon.png" alt=""><span>SanSi</span></a>
+    <p>All numbers on this page are those of the paper: means of three training seeds unless stated otherwise. The example items come from public datasets and are shown with the probabilities of seed 0.</p>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
