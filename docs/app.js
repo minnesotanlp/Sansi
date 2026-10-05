@@ -261,7 +261,9 @@ Promise.all([fetch("data/site.json").then((r) => r.json()), fetch("data/items.js
 
   /* ---------------------------------------------------------------- the animated figure at the top: one item, loop by loop */
   (function teaser() {
-    const fig = $("#teaser"), items = IT.items.filter((it) => it.paper);
+    /* the five examples of the paper, and two items whose answer changes twice (by their fingerprints in items.json) */
+    const fig = $("#teaser"), paper = IT.items.filter((it) => it.paper), twice = ["11d6c625c1cd9e2e", "c39cb97cc8ebb06f"].map((fp) => IT.items.find((it) => it.fp === fp));
+    const items = [paper[0], twice[0], paper[1], paper[2], twice[1], paper[3], paper[4]].filter(Boolean);
     if (!fig || !items.length) return;
     $("#n-items").textContent = String(IT.items.length);
     const LETTER = "ABCDEFGH", WHAT = { fixed: "fixed by the loops", broken: "broken by the loops", always_right: "right at every loop", always_wrong: "wrong at every loop", back_and_forth: "moved back and forth by the loops" };
@@ -303,7 +305,9 @@ Promise.all([fetch("data/site.json").then((r) => r.json()), fetch("data/items.js
       for (const tag of [it.source, it.type_name]) h("span", { class: "tag" }, $("#tz-tags"), tag);
       $("#tz-state").textContent = it.state;
       $("#tz-question").textContent = it.question;
-      $("#tz-what").textContent = "Shown now: an item of " + it.source + " that is " + WHAT[it.group] + ".";
+      const answers = it.p.map(argmax), changes = answers.filter((a, j) => j && a !== answers[j - 1]).length;
+      $("#tz-what").textContent = "Shown now: an item of " + it.source + (changes < 2 ? " that is " + WHAT[it.group] : " whose answer changes " + (["twice", "three times", "four times"][changes - 2] || changes + " times") +
+        " and is " + (answers[7] === it.gold ? "right" : "wrong") + " at the end") + ".";
       rows = it.options.map((o, k) => {
         const row = h("div", { class: "opt" + (k === it.gold ? " is-gold" : "") }, $("#tz-opts")), txt = h("div", { class: "txt" }, row);
         h("b", {}, txt, LETTER[k] + "  "); txt.appendChild(document.createTextNode(cut(o, 46)));
