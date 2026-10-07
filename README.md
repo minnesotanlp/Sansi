@@ -117,6 +117,11 @@ python -m eval.report --a results/depth_swaps_sansi_s0/test_step_2000 --by k
 
 The READMEs in `data/`, `train/` and `eval/` describe every script, the files it writes and what to expect.
 
+## License
+
+The code is released under the Apache License 2.0 (see `LICENSE`). The datasets that the builders in `data/`
+read keep their own licenses.
+
 ## Citation
 
 ```bibtex
