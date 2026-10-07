@@ -71,8 +71,8 @@ button { font-family: inherit; }
 .tagline { max-width: 760px; margin: 20px auto 0; font-size: 18.5px; color: var(--ink-2); text-wrap: balance; }
 .tagline b { color: var(--ink); font-weight: 600; }
 .authors { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 26px; margin: 26px 0 0; font-size: 16px; font-weight: 500; }
-.authors a { color: var(--ink); }
-.authors a:hover { color: var(--accent); text-decoration: none; }
+.authors a { color: var(--accent); }
+.authors a:hover { color: var(--accent-dark); text-decoration: none; }
 .affil { margin: 5px 0 24px; color: var(--muted); font-size: 14.5px; }
 .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 7px 18px; border: 1px solid transparent; border-radius: 999px; font-size: 14.5px; font-weight: 600; }
