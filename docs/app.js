@@ -4,7 +4,7 @@
 "use strict";
 
 const NS = "http://www.w3.org/2000/svg";
-const COL = { sansi: "#0b5cad", dark: "#05295c", smol: "#d9480f", qwen: "#1b8a4c", kev: "#a8327e", jev: "#586172", gray: "#808a9b", grayLight: "#c7cdd8", surface: "#ffffff", wash: "#f1f4f9", ink2: "#454f63" };
+const COL = { sansi: "#0b5cad", dark: "#05295c", smol: "#d9480f", qwen: "#1b8a4c", kev: "#a8327e", jev: "#4d4d4d", gray: "#8c8c8c", grayLight: "#c9c8c2", surface: "#ffffff", wash: "#f1f2f4", ink2: "#3d4149" };
 const $ = (sel, root = document) => root.querySelector(sel);
 
 function setAttrs(node, attrs) {
@@ -113,6 +113,7 @@ function base(host, W, H, m, aria) {
   return { box, svg, W, H, x0: m.l, x1: W - m.r, y0: m.t, y1: H - m.b };
 }
 function yAxis(c, y, ticks, fmt, title) {
+  s("rect", { class: "frame", x: c.x0, y: c.y0, width: c.x1 - c.x0, height: c.y1 - c.y0 }, c.svg);
   for (const t of ticks) {
     s("line", { class: "grid", x1: c.x0, x2: c.x1, y1: y(t), y2: y(t) }, c.svg);
     s("text", { x: c.x0 - 8, y: y(t) + 4, "text-anchor": "end" }, c.svg, fmt(t));
@@ -254,7 +255,7 @@ function segment(sel, cls, shorts) {
 })();
 
 /* ------------------------------------------------------------------ the page */
-Promise.all([fetch("data/site.json").then((r) => r.json()), fetch("data/items.json").then((r) => r.json())]).then(([S, IT]) => {
+Promise.all([fetch("data/site.json?v=20261007").then((r) => r.json()), fetch("data/items.json?v=20261007").then((r) => r.json())]).then(([S, IT]) => {
   const LOOPS = [1, 2, 3, 4, 5, 6, 7, 8];
   const ref = (arm, group, key) => S.refs[arm][group][key][0];
   const holds = (acc) => { let k = 0; while (k < acc.length && acc[k] >= 75) k++; return k; };
@@ -269,24 +270,32 @@ Promise.all([fetch("data/site.json").then((r) => r.json()), fetch("data/items.js
     const LETTER = "ABCDEFGH", WHAT = { fixed: "fixed by the loops", broken: "broken by the loops", always_right: "right at every loop", always_wrong: "wrong at every loop", back_and_forth: "moved back and forth by the loops" };
     const argmax = (p) => p.indexOf(Math.max(...p)), cut = (t, n) => (t.length > n ? t.slice(0, n - 1) + "…" : t);
 
-    /* the diagram: one stack of layers, a way back to its input, and a readout */
-    const W = 360, H = 300, X = 150, TOP = 74, BOT = 236, J = 44, L = 50, B = 264, R = 14, RX = 236, RW = 92;
+    /* the diagram, drawn like the model figure of the paper: grey frozen layers with their LoRA adapters, the blue way
+       back to the input of the stack, and the orange readout */
+    const W = 360, H = 300, X = 150, TOP = 74, BOT = 236, J = 44, L = 44, B = 264, R = 12, RX = 238, RW = 96;
     const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "One stack of 24 layers is applied eight times. After every loop a readout gives the probability of every option, and the hidden state returns to the input of the stack for the next loop." }, $("#tz-model"));
     const dIn = `M0 ${B} H${X - R} Q${X} ${B} ${X} ${B - R} V${BOT}`, dUp = `M${X} ${BOT} V${J}`, dRead = `M${X} ${J} H${RX}`, dOut = `M${RX + RW} ${J} H${W}`;
     const dBack = `M${X} ${J} H${L + R} Q${L} ${J} ${L} ${J + R} V${B - R} Q${L} ${B} ${L + R} ${B} H${X - R} Q${X} ${B} ${X} ${B - R} V${BOT}`;
-    for (const d of [dIn, dBack, `M${X} ${TOP} V${J}`, dRead, dOut]) s("path", { class: "tz-wire", d }, svg);
-    for (const d of [`M${X - 5} ${BOT + 10} L${X} ${BOT + 2} L${X + 5} ${BOT + 10} Z`, `M${RX - 9} ${J - 5} L${RX - 1} ${J} L${RX - 9} ${J + 5} Z`, `M${W - 9} ${J - 5} L${W - 1} ${J} L${W - 9} ${J + 5} Z`, `M${L - 5} 150 L${L} 158 L${L + 5} 150 Z`])
-      s("path", { class: "tz-head-arrow", d }, svg);
-    s("rect", { class: "tz-stack", x: X - 70, y: TOP, width: 140, height: BOT - TOP, rx: 14 }, svg);
-    const layers = [0, 1, 2, 3, 4].map((k) => { const y = BOT - 30 - k * 30; return { cy: y + 9, node: s("rect", { class: "tz-layer", x: X - 54, y, width: 108, height: 18, rx: 9 }, svg) }; });
-    const readout = s("rect", { class: "tz-readout", x: RX, y: J - 15, width: RW, height: 30, rx: 15 }, svg);
-    const readoutText = s("text", { class: "lab", x: RX + RW / 2, y: J + 4, "text-anchor": "middle" }, svg, "readout 1");
-    s("text", { x: (L + X) / 2, y: J - 9, "text-anchor": "middle" }, svg, "next loop");
-    s("text", { x: X, y: B + 24, "text-anchor": "middle" }, svg, "24 layers, the same weights in every loop");
+    s("path", { class: "tz-wire", d: `M0 ${B} H${L + R}` }, svg);
+    s("path", { class: "tz-loopwire", d: dBack }, svg);
+    for (const d of [`M${X} ${TOP} V${J}`, dRead, dOut]) s("path", { class: "tz-wire", d }, svg);
+    s("path", { class: "tz-head-arrow blue", d: `M${X - 6} ${BOT + 12} L${X} ${BOT + 2} L${X + 6} ${BOT + 12} Z` }, svg);
+    s("path", { class: "tz-head-arrow blue", d: `M${L - 6} 148 L${L} 158 L${L + 6} 148 Z` }, svg);
+    for (const d of [`M${RX - 9} ${J - 5} L${RX - 1} ${J} L${RX - 9} ${J + 5} Z`, `M${W - 9} ${J - 5} L${W - 1} ${J} L${W - 9} ${J + 5} Z`]) s("path", { class: "tz-head-arrow", d }, svg);
+    s("rect", { class: "tz-stack", x: X - 70, y: TOP, width: 140, height: BOT - TOP, rx: 10 }, svg);
+    const layers = [0, 1, 2, 3, 4].map((k) => {
+      const y = BOT - 30 - k * 30, node = s("rect", { class: "tz-layer", x: X - 58, y, width: 100, height: 18, rx: 4 }, svg);
+      s("rect", { class: "tz-lora", x: X + 44, y, width: 14, height: 18, rx: 3 }, svg);
+      return { cy: y + 9, node };
+    });
+    const readout = s("rect", { class: "tz-readout", x: RX, y: J - 15, width: RW, height: 30, rx: 5 }, svg);
+    const readoutText = s("text", { x: RX + RW / 2, y: J + 4.5, "text-anchor": "middle" }, svg, "readout 1");
+    s("tspan", { dy: 4, "font-size": 11 }, s("text", { class: "it", x: L + 12, y: J - 9 }, svg, "h"), "t");
+    s("text", { class: "small", x: X, y: B + 24, "text-anchor": "middle" }, svg, "24 layers, the same weights in every loop");
     const CX = (X + 70 + W) / 2;
     s("text", { class: "kick", x: CX, y: 128, "text-anchor": "middle" }, svg, "LOOP");
-    const counter = s("text", { class: "big", x: CX, y: 176, "text-anchor": "middle" }, svg, "1");
-    s("text", { x: CX, y: 198, "text-anchor": "middle" }, svg, "of 8");
+    const counter = s("text", { class: "big", x: CX, y: 178, "text-anchor": "middle" }, svg, "1");
+    s("text", { class: "small", x: CX, y: 200, "text-anchor": "middle" }, svg, "of 8");
     const [pIn, pUp, pBack, pRead, pOut] = [dIn, dUp, dBack, dRead, dOut].map((d) => s("path", { d, fill: "none", stroke: "none" }, svg));
     const main = [s("circle", { class: "tz-halo", r: 11, visibility: "hidden" }, svg), s("circle", { class: "tz-pulse", r: 5.5, visibility: "hidden" }, svg)];
     const read = [s("circle", { class: "tz-read", r: 4.5, visibility: "hidden" }, svg)];
@@ -423,17 +432,86 @@ Promise.all([fetch("data/site.json").then((r) => r.json()), fetch("data/items.js
     if (playing) { fit(); go(0, false); } else { phase = "hold"; fit(); still(0); }
   })();
 
-  /* ---------------------------------------------------------------- tiles */
-  (function tiles() {
-    const acc = S.perloop.all.acc.v, liars = S.depth.liars.sansi;
-    const data = [
-      ["+" + f1(S.gain_by_group.all[0]) + " points", "over a single-pass model of the same shape, with the same data and recipe"],
-      [f1(acc[7]) + "%", "accuracy after eight loops; " + f1(acc[0]) + "% after one"],
-      [f1(S.cost.sansi_per_loop[7]) + "×", "the computation of one pass: the gain is paid in computation, not in parameters"],
-      [holds(liars[0]) + " → " + holds(liars[3]), "dependent steps followed on liar chains after one loop and after four"],
-    ];
-    const box = $("#tiles");
-    for (const [v, l] of data) { const t = h("div", { class: "tile" }, box); h("div", { class: "v" }, t, v); h("div", { class: "l" }, t, l); }
+  /* ---------------------------------------------------------------- the model figure of the paper, in motion
+     The two halves of the figure are images; an overlay with the images' pixel coordinates carries the moving point,
+     the highlights and, on the test-time half, the covers that are lifted loop by loop. */
+  (function modelMotion() {
+    const paneA = $("#mm-a"), paneB = $("#mm-b"), toggle = $("#mm-toggle"), fig = $("#mm");
+    if (!paneA || !paneB) return;
+    const sa = s("svg", { viewBox: "0 0 1071 850", "aria-hidden": "true" }, paneA), sb = s("svg", { viewBox: "0 0 1649 850", "aria-hidden": "true" }, paneB);
+    const hl = (svg, x, y, w, hh) => s("rect", { class: "mm-hl", x, y, width: w, height: hh, rx: 10 }, svg);
+    const path = (svg, d) => s("path", { d, fill: "none", stroke: "none" }, svg);
+    /* (a) training: the boxes in the order the data passes them, and the three ways the point can take */
+    const A = { input: hl(sa, 120, 690, 491, 150), emb: hl(sa, 145, 575, 441, 66), l1: hl(sa, 150, 421, 432, 47), l2: hl(sa, 150, 362, 432, 47), l24: hl(sa, 150, 276, 432, 47),
+      norm: hl(sa, 145, 90, 441, 66), readout: hl(sa, 706, 90, 322, 66), p: hl(sa, 672, 205, 390, 235), loss: hl(sa, 672, 487, 390, 193) };
+    const wayA = { in: path(sa, "M365 690 V531"), up: path(sa, "M365 531 V123"), read: path(sa, "M365 123 H867 V585"), back: path(sa, "M365 90 V38 H62 V530 H365") };
+    s("rect", { x: 14, y: 398, width: 96, height: 46, rx: 8, fill: "#ffffff" }, sa);
+    const label = s("text", { class: "mm-t", x: 62, y: 432, "text-anchor": "middle" }, sa, "");
+    const dotA = s("circle", { class: "mm-dot", r: 11, visibility: "hidden" }, sa);
+    /* (b) test time: the four loops that the figure shows */
+    const SHOWN = [1, 2, 3, 8], COL = [85, 476, 867, 1352];
+    const cover = (x, y, w, hh) => s("rect", { class: "mm-mask", x, y, width: w, height: hh }, sb);
+    const covers = [[cover(74, 238, 294, 612)], [cover(368, 285, 104, 140), cover(472, 238, 284, 612)], [cover(756, 285, 106, 140), cover(862, 238, 284, 612)], [cover(1146, 285, 200, 140), cover(1346, 238, 292, 612)]];
+    const loopB = COL.map((x) => hl(sb, x, 285, 272, 136)), readB = COL.map((x) => hl(sb, x, 462, 272, 61));
+    const wayB = [path(sb, "M221 235 V285"), path(sb, "M357 353 H476"), path(sb, "M748 353 H867"), path(sb, "M1139 353 H1352")];
+    const dotB = s("circle", { class: "mm-dot", r: 11, visibility: "hidden" }, sb);
+
+    /* the sequence: loops 1, 2 and 3 in full, loops 4 to 7 as one quick turn, then loop 8 */
+    const seq = [{ kind: "in", ms: 700, text: "t = 1" }];
+    SHOWN.forEach((t, i) => {
+      if (t === 8) seq.push({ kind: "up", ms: 420, text: "…" }, { kind: "back", ms: 520 });
+      seq.push({ kind: "up", ms: 900, text: "t = " + t, i }, { kind: "read", ms: 1000, i });
+      if (t !== 8) seq.push({ kind: "back", ms: 820 });
+    });
+    seq.push({ kind: "hold", ms: 2800 });
+    const at = (p, u) => p.getPointAtLength(Math.max(0, Math.min(1, u)) * p.getTotalLength());
+    const ease = (u) => (u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2);
+    const put = (dot, pt) => setAttrs(dot, { cx: pt.x, cy: pt.y, visibility: "visible" });
+    let k = 0, el = 0, last = null, raf = 0, visible = true, playing = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function reveal(upTo) { covers.forEach((group, i) => group.forEach((c) => c.classList.toggle("off", i <= upTo))); }
+    function draw() {
+      const ph = seq[k], u = el / ph.ms;
+      let x = -1, y = -1;
+      if (ph.kind === "hold") dotA.setAttribute("visibility", "hidden");
+      else { const pt = at(wayA[ph.kind], ph.kind === "up" ? u : ease(u)); x = pt.x; y = pt.y; put(dotA, pt); }
+      const on = { input: ph.kind === "in" && u < 0.25, emb: ph.kind === "in" && y <= 641 && y >= 575, l1: ph.kind === "up" && y <= 468 && y >= 421, l2: ph.kind === "up" && y <= 408 && y >= 362,
+        l24: ph.kind === "up" && y <= 322 && y >= 276, norm: (ph.kind === "up" && y <= 156) || (ph.kind === "read" && x < 586), readout: ph.kind === "read" && x >= 706 && y <= 160,
+        p: ph.kind === "read" && y >= 205 && y <= 440, loss: ph.kind === "read" && y >= 487 };
+      for (const key of Object.keys(A)) A[key].classList.toggle("on", on[key]);
+      /* the test-time half follows: the point enters the loop while the layers run, and the column appears when the readout is reached */
+      const i = ph.i;
+      if (ph.kind === "up" && i !== undefined && u < 0.6) put(dotB, at(wayB[i], u / 0.6)); else dotB.setAttribute("visibility", "hidden");
+      loopB.forEach((r, j) => r.classList.toggle("on", ph.kind === "up" && j === i && u >= 0.5));
+      readB.forEach((r, j) => r.classList.toggle("on", ph.kind === "read" && j === i && x >= 706 && y <= 300));
+      if (ph.kind === "up" && i !== undefined && u >= 0.5) covers[i].slice(0, -1).forEach((c) => c.classList.add("off"));
+      if (ph.kind === "read" && x >= 706) reveal(i);
+    }
+    function enter() { const ph = seq[k]; if (ph.text) label.textContent = ph.text; if (k === 0) reveal(-1); }
+    function tick(ts) {
+      raf = 0;
+      if (last !== null) {
+        el += Math.min(100, ts - last);
+        while (el >= seq[k].ms) { el -= seq[k].ms; k = (k + 1) % seq.length; enter(); }
+      }
+      last = ts;
+      draw();
+      if (playing && visible) raf = requestAnimationFrame(tick);
+    }
+    function run() { if (playing && visible && !raf) { last = null; raf = requestAnimationFrame(tick); } }
+    function setToggle() {
+      toggle.textContent = "";
+      const g = s("svg", { viewBox: "0 0 12 12", "aria-hidden": "true" }, toggle);
+      if (playing) { s("rect", { x: 2, y: 1.5, width: 3, height: 9, rx: 1 }, g); s("rect", { x: 7, y: 1.5, width: 3, height: 9, rx: 1 }, g); } else s("path", { d: "M3 1.5 10.5 6 3 10.5Z" }, g);
+      toggle.appendChild(document.createTextNode(playing ? "Pause" : "Play"));
+    }
+    toggle.addEventListener("click", () => {
+      if (!playing && seq[k].kind === "hold") { k = 0; el = 0; enter(); }
+      playing = !playing; setToggle(); run();
+    });
+    if ("IntersectionObserver" in window) new IntersectionObserver((es) => { visible = es[es.length - 1].isIntersecting; run(); }, { threshold: 0.2 }).observe(fig);
+    setToggle();
+    if (playing) { enter(); run(); } else { k = seq.length - 1; reveal(3); label.textContent = "t = 8"; draw(); }
   })();
 
   /* ---------------------------------------------------------------- accuracy against parameters */
@@ -479,43 +557,86 @@ Promise.all([fetch("data/site.json").then((r) => r.json()), fetch("data/items.js
   /* ---------------------------------------------------------------- accuracy against computation */
   (function costChart() {
     const host = $("#ch-cost"), W = 460, H = 360;
-    legend(host, [{ kind: "line", marker: "dot", color: COL.sansi, label: "SanSi, after loops 1–8" }, { kind: "line", marker: "square", dash: "5 4", color: COL.qwen, label: "Qwen3.5" }, { kind: "mark", marker: "square", color: COL.smol, label: "SmolLM2" },
+    legend(host, [{ kind: "line", marker: "dot", color: COL.sansi, label: "SanSi, after loops 1–8" }, { kind: "line", marker: "dot", color: COL.dark, label: "SanSi-2.6B, after loops 1–8" },
+      { kind: "line", marker: "square", dash: "5 4", color: COL.qwen, label: "Qwen3.5" }, { kind: "mark", marker: "square", color: COL.smol, label: "SmolLM2" },
       { kind: "mark", marker: "triangle", color: COL.kev, label: "Kev-4B (our data)" }]);
     const c = base(host, W, H, { t: 30, r: 16, b: 48, l: 44 }, "Accuracy against the computation spent on a decision");
-    const x = logScale(0.62, 9.2, c.x0, c.x1), y = lin(54, 78, c.y1, c.y0), acc = S.perloop.all.acc, cost = S.cost.sansi_per_loop;
+    const x = logScale(0.62, 18.5, c.x0, c.x1), y = lin(54, 78, c.y1, c.y0);
     yAxis(c, y, [54, 60, 66, 72, 78], String, "Accuracy (%)");
-    xAxis(c, x, [1, 2, 3, 4, 6, 8], (v) => v + "×", "GPU time per decision (one loop = 1)");
-    const pts = LOOPS.map((t) => [x(cost[t - 1]), y(acc.v[t - 1])]);
-    s("polygon", { points: LOOPS.map((t) => `${x(cost[t - 1])},${y(acc.v[t - 1] + acc.sd[t - 1])}`).concat(LOOPS.map((t) => `${x(cost[t - 1])},${y(acc.v[t - 1] - acc.sd[t - 1])}`).reverse()).join(" "), fill: COL.sansi, opacity: 0.12 }, c.svg);
-    s("path", { d: pts.map((p, i) => (i ? "L" : "M") + p[0] + " " + p[1]).join(" "), fill: "none", stroke: COL.sansi, "stroke-width": 2, "stroke-linejoin": "round" }, c.svg);
+    xAxis(c, x, [1, 2, 4, 8, 16], (v) => v + "×", "GPU time per decision (one loop = 1)");
+    const curves = [{ name: "SanSi", acc: S.perloop.all.acc, cost: S.cost.sansi_per_loop, col: COL.sansi },
+                    { name: "SanSi-2.6B", acc: S.size.sansi26.acc, cost: S.cost.sansi26_per_loop, col: COL.dark }];
+    const rows = [], pts = {};
+    for (const k of curves) {
+      const p = LOOPS.map((t) => [x(k.cost[t - 1]), y(k.acc.v[t - 1])]);
+      pts[k.name] = p;
+      s("polygon", { points: LOOPS.map((t) => `${x(k.cost[t - 1])},${y(k.acc.v[t - 1] + k.acc.sd[t - 1])}`).concat(LOOPS.map((t) => `${x(k.cost[t - 1])},${y(k.acc.v[t - 1] - k.acc.sd[t - 1])}`).reverse()).join(" "), fill: k.col, opacity: 0.12 }, c.svg);
+      s("path", { d: p.map((q, i) => (i ? "L" : "M") + q[0] + " " + q[1]).join(" "), fill: "none", stroke: k.col, "stroke-width": 2, "stroke-linejoin": "round" }, c.svg);
+    }
     const qa = ["qwen2b", "qwen"].map((a) => [x(S.cost.single_pass[a]), y(ref(a, "all", "acc"))]);
     s("line", { x1: qa[0][0], y1: qa[0][1], x2: qa[1][0], y2: qa[1][1], stroke: COL.qwen, "stroke-width": 2, "stroke-dasharray": "5 4" }, c.svg);
-    const rows = [];
     for (const arm of ["smol", "qwen2b", "qwen", "kevrep"]) {
       const v = S.refs[arm].all.acc, px = x(S.cost.single_pass[arm]), col = arm === "smol" ? COL.smol : arm === "kevrep" ? COL.kev : COL.qwen;
       const mark = arm === "kevrep" ? triangle(c.svg, px, y(v[0]) - 1, col) : square(c.svg, px, y(v[0]), col, { size: 10 });
       hover(mark, S.names[arm] + ", one pass", [{ label: "Accuracy", value: f1(v[0]) + " ± " + f1(v[1]) + "%" }, { label: "GPU time", value: f2(S.cost.single_pass[arm]) + "×" }]);
-      const at = { smol: [9, 19, "start"], qwen2b: [0, 19, "middle"], qwen: [11, -3, "start"], kevrep: [-9, -8, "end"] }[arm];
+      const at = { smol: [9, 19, "start"], qwen2b: [0, 19, "middle"], qwen: [7, -9, "start"], kevrep: [-9, -8, "end"] }[arm];
       s("text", { class: "lab", x: px + at[0], y: y(v[0]) + at[1], "text-anchor": at[2] }, c.svg, S.names[arm]);
       rows.push([S.names[arm], "1", f2(S.cost.single_pass[arm]), f1(v[0])]);
     }
-    LOOPS.forEach((t, i) => {
-      hover(dot(c.svg, pts[i][0], pts[i][1], t === 8 ? COL.dark : COL.sansi, { r: t === 8 ? 5.5 : 4.5 }), "SanSi, read after loop " + t, [{ label: "Accuracy", value: f1(acc.v[i]) + " ± " + f1(acc.sd[i]) + "%" }, { label: "GPU time", value: f2(cost[i]) + "×" }]);
-      rows.push(["SanSi", String(t), f2(cost[i]), f1(acc.v[i])]);
-    });
-    s("text", { class: "lab", x: pts[0][0] - 9, y: pts[0][1] + 4, "text-anchor": "end" }, c.svg, "loop 1");
-    s("text", { class: "lab", x: pts[2][0] + 8, y: pts[2][1] + 16 }, c.svg, "loop 3");
-    s("text", { class: "strong", x: pts[7][0], y: pts[7][1] - 12, "text-anchor": "middle" }, c.svg, "loop 8");
+    for (const k of curves) {
+      LOOPS.forEach((t, i) => {
+        const q = pts[k.name][i];
+        hover(dot(c.svg, q[0], q[1], t === 8 ? COL.dark : k.col, { r: t === 8 ? 5.5 : 4.5 }), k.name + ", read after loop " + t, [{ label: "Accuracy", value: f1(k.acc.v[i]) + " ± " + f1(k.acc.sd[i]) + "%" }, { label: "GPU time", value: f2(k.cost[i]) + "×" }]);
+        rows.push([k.name, String(t), f2(k.cost[i]), f1(k.acc.v[i])]);
+      });
+    }
+    const a1 = pts.SanSi, a2 = pts["SanSi-2.6B"];
+    s("text", { class: "lab", x: a1[0][0] - 9, y: a1[0][1] + 4, "text-anchor": "end" }, c.svg, "loop 1");
+    s("text", { class: "lab", x: a1[2][0] + 8, y: a1[2][1] + 16 }, c.svg, "loop 3");
+    s("text", { class: "strong", x: a1[7][0], y: a1[7][1] + 22, "text-anchor": "middle" }, c.svg, "SanSi");
+    s("text", { class: "lab", x: a2[0][0] + 9, y: a2[0][1] + 4 }, c.svg, "loop 1");
+    s("text", { class: "strong", x: a2[7][0] + 4, y: a2[7][1] - 13, "text-anchor": "end" }, c.svg, "SanSi-2.6B");
     table(host, ["Model", "Loops", "GPU time (×)", "Accuracy (%)"], rows);
   })();
 
   /* ---------------------------------------------------------------- the main comparison as a table */
   (function mainTable() {
-    const t = h("table", { class: "main" }, $("#tbl-main")), hr = h("tr", {}, h("thead", {}, t)), tb = h("tbody", {}, t), pm = (v, f) => f(v[0]) + " ± " + f(v[1]);
-    ["Model", "Params", "Loops", "Cost", "All", "In-dist.", "Near", "Far", "ECE ↓", "Evid. AUROC ↑"].forEach((x) => h("th", { scope: "col" }, hr, x));
+    const tbl = h("table", { class: "main" }, $("#tbl-main")), hr = h("tr", {}, h("thead", {}, tbl)), tb = h("tbody", {}, tbl);
+    const HEAD = ["Model", "Params", "Loops", "Cost", "All", "In-dist.", "Near", "Far", "ECE ↓", "Evid. AUROC ↑"];
+    HEAD.forEach((x) => h("th", { scope: "col" }, hr, x));
+    const group = (r) => (r.ours ? "Looped, our recipe" : r.name.indexOf("Kev") === 0 ? "Single pass, Kev's recipe" : "Single pass, our recipe");
+    let last = "";
     for (const r of S.main) {
+      if (group(r) !== last) { last = group(r); h("th", { colspan: HEAD.length, scope: "colgroup" }, h("tr", { class: "group" }, tb), last); }
       const tr = h("tr", r.ours ? { class: "ours" } : {}, tb);
-      [r.name, r.params, String(r.loops), r.cost === null ? "–" : f1(r.cost) + "×", pm(r.acc.all, f1), pm(r.acc.in_dist, f1), pm(r.acc.near, f1), pm(r.acc.far, f1), pm(r.ece, f3), pm(r.evid, f3)].forEach((v, i) => h(i ? "td" : "th", i ? (i === 4 ? { class: "all" } : {}) : { scope: "row" }, tr, v));
+      h("th", { scope: "row" }, tr, r.name);
+      for (const v of [r.params, String(r.loops), r.cost === null ? "–" : f1(r.cost) + "×"]) h("td", {}, tr, v);
+      [[r.acc.all, f1], [r.acc.in_dist, f1], [r.acc.near, f1], [r.acc.far, f1], [r.ece, f3], [r.evid, f3]].forEach(([v, f], i) => { h("small", {}, h("td", i ? {} : { class: "all" }, tr, f(v[0])), "±" + f(v[1])); });
+    }
+  })();
+
+  /* ---------------------------------------------------------------- training choices (Table 3 and Section 7 of the paper) */
+  (function training() {
+    const T = S.training, D = T.diffs, by = Object.fromEntries(T.rows.map((r) => [r.arm, r]));
+    const acc = (arm, i) => f1(by[arm].acc[i][0]), ece = (arm, i) => f3(by[arm].ece[i][0]);
+    const m1 = (v) => (v < 0 ? "−" : "") + Math.abs(v).toFixed(1), ci = (d, f = m1) => "[" + f(d[1]) + ", " + f(d[2]) + "]";
+    $("#train-text").textContent = "With the loss on the last loop only, accuracy at loop 8 drops " + f1(D.last[0]) + " points " + ci(D.last) + " to " + acc("last8", 3) + "%, and early loops collapse (" +
+      acc("last8", 0) + "% at loop 1, against " + acc("all8", 0) + "%). The per-loop loss thus adds a point and, above all, makes every loop usable. The signal type matters less for accuracy: replacing supervision " +
+      "with outcome-only reinforcement learning leaves accuracy unchanged (" + acc("rl", 3) + "% against " + acc("all8", 3) + "%; " + m1(D.rl[0]) + " " + ci(D.rl) + "), and so does dropping the Brier term (" +
+      acc("ce8", 3) + "%; " + m1(D.ce[0]) + " " + ci(D.ce) + "). The Brier term matters for the probabilities: without it, the ECE at loop 8 rises from " + ece("all8", 1) + " to " + ece("ce8", 1) +
+      " (+" + f3(D.ce_ece[0]) + " " + ci(D.ce_ece, f3) + "), and the share of unanswerable items that receive a hard answer from " + f1(D.ce_hard_ab[1]) + "% to " + f1(D.ce_hard_ab[0]) + "% (+" + f1(D.ce_hard[0]) +
+      " points " + ci(D.ce_hard) + ").";
+    const tbl = h("table", { class: "main" }, $("#tbl-train")), th = h("thead", {}, tbl), tb = h("tbody", {}, tbl);
+    const r1 = h("tr", {}, th), r2 = h("tr", {}, th);
+    h("th", { scope: "col" }, r1, ""); h("th", { colspan: 4, scope: "colgroup", class: "c" }, r1, "Accuracy (%) read at loop"); h("th", { colspan: 2, scope: "colgroup", class: "c" }, r1, "ECE ↓ at loop");
+    ["Training", "1", "2", "4", "8", "4", "8"].forEach((x) => h("th", { scope: "col" }, r2, x));
+    let last = null;
+    for (const r of T.rows) {
+      if (r.group && r.group !== last) { last = r.group; h("th", { colspan: 7, scope: "colgroup" }, h("tr", { class: "group" }, tb), r.group); }
+      const tr = h("tr", r.group ? {} : { class: "ours" }, tb);
+      h("th", { scope: "row" }, tr, r.name);
+      r.acc.forEach((v) => h("small", {}, h("td", {}, tr, f1(v[0])), "±" + f1(v[1])));
+      r.ece.forEach((v) => h("small", {}, h("td", {}, tr, f3(v[0])), "±" + f3(v[1])));
     }
   })();
 
@@ -526,7 +647,7 @@ Promise.all([fetch("data/site.json").then((r) => r.json()), fetch("data/items.js
       "%. It cannot be separated from the same backbone trained with our recipe (Qwen3.5-4B, " + acc("qwen") + "%; difference " + f1(D["kevrep-qwen"][0]) + " points " + iv(D["kevrep-qwen"]) + "). SanSi is " + f1(D["kevrep-sansi"][0]) + " points below it " + iv(D["kevrep-sansi"]) +
       " with a third of its parameters, and SanSi-2.6B is " + f1(D["sansi26-kevrep"][0]) + " points above it " + iv(D["sansi26-kevrep"]) + " with 63% of its parameters.";
     $("#kev-text2").textContent = "The released Kev-4B and the Jev API were not trained on our data, and " + K.counts.kev_train + " of our test items are training items of the released Kev. A comparison that favours neither side is therefore only possible on the " +
-      K.counts.neither.toLocaleString("en-US") + " test items of far transfer and JevBench, whose sources no model was trained on.";
+      K.counts.neither.toLocaleString("en-US") + " test items of far transfer and JevBench, whose sources neither our models nor the released Kev-4B were trained on.";
     const host = $("#ch-neither"), groups = [["Released models, not trained on our data", K.neither.filter((r) => r.released)], ["Trained on our data", K.neither.filter((r) => !r.released)]];
     const W = 900, rowH = 30, headH = 28, n = K.neither.length, H = 16 + groups.length * headH + n * rowH + 44, c = base(host, W, H, { t: 16, r: 90, b: 44, l: 190 }, "Accuracy on the test items that neither side trained on");
     const x = lin(60, 90, c.x0, c.x1), rows = [];
@@ -595,16 +716,17 @@ Promise.all([fetch("data/site.json").then((r) => r.json()), fetch("data/items.js
       hard: { name: "Hard answers when the evidence is missing", short: "Hard answers", title: "Hard answers (%, lower is better)", fmt: f1, sub: "Share of the items without their key evidence on which the model still commits to an answer.", refs: true },
     };
     const GROUP = { all: "All test items", in_dist: "In distribution", near: "Near transfer", far: "Far transfer" };
-    const mSel = $("#pl-metric"), gSel = $("#pl-group");
-    for (const [k, v] of Object.entries(METRIC)) h("option", { value: k }, mSel, v.name);
+    function block(pre, keys) {
+    const mSel = $("#" + pre + "-metric"), gSel = $("#" + pre + "-group");
+    for (const k of keys) h("option", { value: k }, mSel, METRIC[k].name);
     for (const [k, v] of Object.entries(GROUP)) h("option", { value: k }, gSel, v);
-    segment(mSel, "seg", Object.fromEntries(Object.entries(METRIC).map(([k, v]) => [k, v.short])));
+    if (keys.length > 1) segment(mSel, "seg", Object.fromEntries(keys.map((k) => [k, METRIC[k].short])));
     segment(gSel, "seg");
     function render() {
-      const mk = mSel.value, gk = gSel.value, M = METRIC[mk], P = S.perloop[gk], host = $("#ch-perloop");
-      $("#pl-title").textContent = M.name + " after every loop: " + GROUP[gk].toLowerCase();
+      const mk = mSel.value, gk = gSel.value, M = METRIC[mk], P = S.perloop[gk], host = $("#ch-" + pre);
+      $("#" + pre + "-title").textContent = M.name + " after every loop: " + GROUP[gk].toLowerCase();
       const cd = Object.values(S.calib_dev).map((v) => v[1]);
-      $("#pl-sub").textContent = M.sub + " Line: mean of three seeds; band: one standard deviation." + (M.refs ? " Horizontal lines: single-pass models, run once." : "") +
+      $("#" + pre + "-sub").textContent = M.sub + " Line: mean of three seeds; band: one standard deviation." + (M.refs ? " Horizontal lines: single-pass models, run once." : "") +
         (mk === "ece" ? " These are the probabilities as trained. With one temperature fitted on the development set, the ECE of SanSi, SanSi-2.6B, Qwen3.5-4B and Kev-4B (our data) all fall to " + f3(Math.min(...cd)) + "–" + f3(Math.max(...cd)) + "." : "");
       let series, refs = [], all = [];
       if (mk === "conf") {
@@ -623,6 +745,9 @@ Promise.all([fetch("data/site.json").then((r) => r.json()), fetch("data/items.js
     }
     mSel.addEventListener("change", render); gSel.addEventListener("change", render);
     render();
+    }
+    block("pa", ["acc"]);
+    block("pb", ["conf", "ece", "auroc_evid", "hard"]);
   })();
 
   /* ---------------------------------------------------------------- answers fixed and broken */
@@ -801,7 +926,7 @@ Promise.all([fetch("data/site.json").then((r) => r.json()), fetch("data/items.js
         if (it.unans) { const thr = h("div", { class: "thr", title: "threshold of a hard answer" }, track); thr.style.left = ((1 + 1 / it.options.length) / 2) * 100 + "%"; }
       });
       /* the single-pass models */
-      h("div", { class: "kicker", style: "margin-top:0" }, $("#ex-one"), "Single-pass models, one pass each");
+      h("div", { class: "lab", style: "margin-top:0" }, $("#ex-one"), "Single-pass models, one pass each");
       const tb = h("table", {}, $("#ex-one"));
       for (const [name, col] of ONE) {
         const p = it.one[name], k = argmax(p), tr = h("tr", {}, tb), m = h("td", { class: "m" }, tr), sw = h("span", { class: "swatch" }, m);
