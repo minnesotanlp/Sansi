@@ -7,6 +7,8 @@ Paper: https://arxiv.org/abs/2610.07730
 
 Project page: https://minnesotanlp.github.io/Sansi/
 
+Models: https://huggingface.co/minnesotanlp/SanSi and https://huggingface.co/minnesotanlp/SanSi-2.6B
+
 ## What SanSi is
 
 A typed decision model answers a declared question by giving a probability to each of the declared options, without
@@ -48,7 +50,8 @@ pass over the test set, relative to Ouro-1.4B with one loop.
 ```
 README.md
 requirements.txt
-sansi/    the model: the wrapper around the backbone with a readout after every loop (model.py), the loss (loss.py)
+sansi/    the model: the wrapper around the backbone with a readout after every loop (model.py), the loss (loss.py),
+          and loading a released model (hub.py)
 data/     builders of the main set and of the two depth tasks (liar chains, object swaps); see data/README.md
 train/    the training script (train.py) and a run script (run.sh); see train/README.md
 eval/     the test pass (evaluate.py), the per-run metrics (metrics.py) and the report (report.py); see eval/README.md
@@ -71,6 +74,30 @@ You also need the backbones (Ouro-1.4B for SanSi; Ouro-2.6B, SmolLM2-1.7B, Qwen3
 the other models) and, for the main set, the source datasets, which `data.download_raw` downloads at the revisions
 the paper used (`data/README.md`). The scripts take local folders: `--model` and `--tokenizer` for a backbone, `--raw`
 for the source datasets.
+
+## Use a released model
+
+The models of the paper are on the Hugging Face Hub: [minnesotanlp/SanSi](https://huggingface.co/minnesotanlp/SanSi)
+(on Ouro-1.4B) and [minnesotanlp/SanSi-2.6B](https://huggingface.co/minnesotanlp/SanSi-2.6B) (on Ouro-2.6B), each the
+run with seed 0. A model repository holds the LoRA adapter and the readouts; `sansi.hub.load` downloads it together
+with the backbone at the revision the model was trained on.
+
+```python
+from sansi.hub import load, decide
+
+model, tok = load("minnesotanlp/SanSi")
+probs = decide(model, tok,
+               state="Mia is taller than Sam. Sam is taller than Lee.",
+               question="Who is the shortest?",
+               options=["Mia", "Sam", "Lee"])
+print(probs[0])    # after loop 1: about [0.02, 0.07, 0.91]
+print(probs[-1])   # after loop 8: about [0.00, 0.00, 1.00]
+```
+
+`decide` writes the prompt the model was trained on (`sansi.model.render_prompt`) and returns one list of option
+probabilities per loop, in the order of the options; `loops=` runs fewer or more loops than the eight it was trained
+with. `load(..., backbone=<folder>)` uses a local copy of the backbone instead of downloading it. Use a GPU; the
+backbone runs in bfloat16.
 
 ## Quick start
 
