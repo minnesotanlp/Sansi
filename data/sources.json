@@ -1,0 +1,591 @@
+{
+ "about": "The raw files that data.build_main reads, with where each one was downloaded from. data.download_raw fetches them at these revisions and checks their sha256; the tokenizer is the one that counts meta.tokens.",
+ "tokenizer": {
+  "hf_model": "ByteDance/Ouro-1.4B",
+  "revision": "574fa66cb8bf5abdc979642d01cf2b79b16bfab1",
+  "folder": "ByteDance__Ouro-1.4B",
+  "files": [
+   {
+    "path": "tokenizer.json",
+    "bytes": 3522644,
+    "sha256": "fcb808fe5e7642f5299be28aea07fc7f6d4f4364c3ac5e408e15a772cbc8fa8d"
+   },
+   {
+    "path": "tokenizer_config.json",
+    "bytes": 4211,
+    "sha256": "7e010da95d71b0fa1aa809552922c74cc1dd98d628f21ba39ca6c35aa18d5d91"
+   }
+  ]
+ },
+ "gated": {
+  "yale-nlp/FOLIO": "accept the terms on its Hugging Face page and log in (hf auth login) before downloading"
+ },
+ "files": [
+  {
+   "file": "CLUTRR__v1/data/gen_train234_test2to10/test.csv",
+   "bytes": 1838730,
+   "sha256": "e139a9ebeece6901f0aa076dd6dd86ee9ff4a750473e3d477362b7f81da359cf",
+   "source": {
+    "github": "kliang5/CLUTRR_huggingface_dataset",
+    "commit": "82276a5ffd9b2efd8e5fe866be35648f4779883b",
+    "path": "gen_train234_test2to10/test.csv"
+   }
+  },
+  {
+   "file": "CLUTRR__v1/data/gen_train234_test2to10/train.csv",
+   "bytes": 10235146,
+   "sha256": "a6123f6e305cc528f0cd9fe441014fc244cc4b4a1e13a56c381624a7ca26c392",
+   "source": {
+    "github": "kliang5/CLUTRR_huggingface_dataset",
+    "commit": "82276a5ffd9b2efd8e5fe866be35648f4779883b",
+    "path": "gen_train234_test2to10/train.csv"
+   }
+  },
+  {
+   "file": "CLUTRR__v1/data/gen_train234_test2to10/validation.csv",
+   "bytes": 2562379,
+   "sha256": "414390d3322b9fd27ca00d99e442df63b497c9c05918a09f72843c926556cfaa",
+   "source": {
+    "github": "kliang5/CLUTRR_huggingface_dataset",
+    "commit": "82276a5ffd9b2efd8e5fe866be35648f4779883b",
+    "path": "gen_train234_test2to10/validation.csv"
+   }
+  },
+  {
+   "file": "Dzeniks__hover/train.jsonl",
+   "bytes": 9536549,
+   "sha256": "53028c6a7d8cfd7a28d571dd4d3b1fe6eb3b0b546b873a6355d582d0c2c70a4f",
+   "source": {
+    "hf_dataset": "Dzeniks/hover",
+    "revision": "8cacc890b6a6bb80e163bab3bdb67db147df58c9",
+    "path": "train.jsonl"
+   }
+  },
+  {
+   "file": "TIGER-Lab__MMLU-Pro/data/test-00000-of-00001.parquet",
+   "bytes": 4144185,
+   "sha256": "0e24a191921c2f453518a537a8b2117bd137e7714d4ef1565e9ba06c1ecb9ad8",
+   "source": {
+    "hf_dataset": "TIGER-Lab/MMLU-Pro",
+    "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be",
+    "path": "data/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "alisawuffles__WANLI/test.jsonl",
+   "bytes": 1233111,
+   "sha256": "4276e0af7fcdf657d1ab7beb54eaf025fda592a76c9ee86b63b7871953fc74fd",
+   "source": {
+    "hf_dataset": "alisawuffles/WANLI",
+    "revision": "61c95318fd71c55b6ba355d76253254615f387ec",
+    "path": "test.jsonl"
+   }
+  },
+  {
+   "file": "allenai__ai2_arc/ARC-Challenge/test-00000-of-00001.parquet",
+   "bytes": 203808,
+   "sha256": "62f03257e737aed263f55c6abf87c7bb0028a44a6bdd2a26eb1279eb42c1d1e9",
+   "source": {
+    "hf_dataset": "allenai/ai2_arc",
+    "revision": "210d026faf9955653af8916fad021475a3f00453",
+    "path": "ARC-Challenge/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "allenai__ai2_arc/ARC-Easy/test-00000-of-00001.parquet",
+   "bytes": 346257,
+   "sha256": "4160597d618ae851c7eb04e281574f3f654776216ac6b6641588d64527b47177",
+   "source": {
+    "hf_dataset": "allenai/ai2_arc",
+    "revision": "210d026faf9955653af8916fad021475a3f00453",
+    "path": "ARC-Easy/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "allenai__sciq/data/test-00000-of-00001.parquet",
+   "bytes": 342808,
+   "sha256": "3a719356a29b127fc54ef3c7f51a034db4bd105d5717215e8c85d2aa58d60667",
+   "source": {
+    "hf_dataset": "allenai/sciq",
+    "revision": "2c94ad3e1aafab77146f384e23536f97a4849815",
+    "path": "data/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "bdsaglam__musique/musique_ans_v1.0_dev.jsonl",
+   "bytes": 30439728,
+   "sha256": "15fa63794d18a94ce12411aca6e2327e65b6e83b0b1490efab3f1962e48abf3b",
+   "source": {
+    "hf_dataset": "bdsaglam/musique",
+    "revision": "22873a405dd809893b22ada0b499299fb612d2df",
+    "path": "musique_ans_v1.0_dev.jsonl"
+   }
+  },
+  {
+   "file": "bdsaglam__musique/musique_ans_v1.0_train.jsonl",
+   "bytes": 241046755,
+   "sha256": "83a75b1e11e4e9bb8f8308e72ac40ca617ae4431b3a0d955b61cab259248490a",
+   "source": {
+    "hf_dataset": "bdsaglam/musique",
+    "revision": "22873a405dd809893b22ada0b499299fb612d2df",
+    "path": "musique_ans_v1.0_train.jsonl"
+   }
+  },
+  {
+   "file": "bdsaglam__musique/musique_full_v1.0_dev.jsonl",
+   "bytes": 59422562,
+   "sha256": "8cab31d56a3a1c4ef491b205a8dab3f1ac9c66e472098c6cf1de4e20294f7a4a",
+   "source": {
+    "hf_dataset": "bdsaglam/musique",
+    "revision": "22873a405dd809893b22ada0b499299fb612d2df",
+    "path": "musique_full_v1.0_dev.jsonl"
+   }
+  },
+  {
+   "file": "bdsaglam__musique/musique_full_v1.0_train.jsonl",
+   "bytes": 476696984,
+   "sha256": "b1cd998f7e0e2838d6fda024e4ad1eb0e7fc3edefdadb0bd9b5b10b0907f2034",
+   "source": {
+    "hf_dataset": "bdsaglam/musique",
+    "revision": "22873a405dd809893b22ada0b499299fb612d2df",
+    "path": "musique_full_v1.0_train.jsonl"
+   }
+  },
+  {
+   "file": "cais__mmlu/all/test-00000-of-00001.parquet",
+   "bytes": 3504718,
+   "sha256": "74a41822ce7d3def56e1682f958469c04642a5336a5ce912fa375fdb90fb25d7",
+   "source": {
+    "hf_dataset": "cais/mmlu",
+    "revision": "c30699e8356da336a370243923dbaf21066bb9fe",
+    "path": "all/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "cardiffnlp__tweet_eval/hate/test-00000-of-00001.parquet",
+   "bytes": 277846,
+   "sha256": "c07de83b04e013b956c66187e1fd454fadb6f4caacc23e11f5fb3f80ddc2abd2",
+   "source": {
+    "hf_dataset": "cardiffnlp/tweet_eval",
+    "revision": "b3a375baf0f409c77e6bc7aa35102b7b3534f8be",
+    "path": "hate/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "cardiffnlp__tweet_eval/irony/test-00000-of-00001.parquet",
+   "bytes": 53984,
+   "sha256": "d6bcf4eae70637cacc9239773684a37cbfa3ef98fde5f173355651afee477862",
+   "source": {
+    "hf_dataset": "cardiffnlp/tweet_eval",
+    "revision": "b3a375baf0f409c77e6bc7aa35102b7b3534f8be",
+    "path": "irony/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "cardiffnlp__tweet_eval/offensive/test-00000-of-00001.parquet",
+   "bytes": 93731,
+   "sha256": "15b87adaf1850d8e3e104be6240255813d48d776940be546ad353fee9fcfb099",
+   "source": {
+    "hf_dataset": "cardiffnlp/tweet_eval",
+    "revision": "b3a375baf0f409c77e6bc7aa35102b7b3534f8be",
+    "path": "offensive/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "cardiffnlp__tweet_eval/sentiment/test-00000-of-00001.parquet",
+   "bytes": 900553,
+   "sha256": "f73aea52d43879223019e733b944780f7e9203ee32459ea006f554011379fcdf",
+   "source": {
+    "hf_dataset": "cardiffnlp/tweet_eval",
+    "revision": "b3a375baf0f409c77e6bc7aa35102b7b3534f8be",
+    "path": "sentiment/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "community-datasets__yahoo_answers_topics/yahoo_answers_topics/test-00000-of-00001.parquet",
+   "bytes": 21939321,
+   "sha256": "1ae212b4eccfc514668b9c9952f16aadf6d3b056a202cb897d30e3dd3671c690",
+   "source": {
+    "hf_dataset": "community-datasets/yahoo_answers_topics",
+    "revision": "6652a1e7c94f7260a0bfd0c9092dd48e2d536ea1",
+    "path": "yahoo_answers_topics/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "dair-ai__emotion/split/test-00000-of-00001.parquet",
+   "bytes": 128987,
+   "sha256": "6f8407fa1ca9c310f55781f082ed73812f6551e8dda2c61973123a121869245b",
+   "source": {
+    "hf_dataset": "dair-ai/emotion",
+    "revision": "cab853a1dbdf4c42c2b3ef2173804746df8825fe",
+    "path": "split/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "earino__chaosnli/raw/chaosNLI_alphanli.jsonl",
+   "bytes": 793550,
+   "sha256": "f55817ecc11a02ba3030cd7d2c567d23843456809020723abad53f4fde024c9e",
+   "source": {
+    "hf_dataset": "earino/chaosnli",
+    "revision": "bf8d66a1d3434ac8b90ffc392b1b5e44bdf7e439",
+    "path": "raw/chaosNLI_alphanli.jsonl"
+   }
+  },
+  {
+   "file": "earino__chaosnli/raw/chaosNLI_mnli_m.jsonl",
+   "bytes": 871731,
+   "sha256": "8eb49b589488e7b1a9ec95fb8a864bd50f0509b4f808eed0aed3f8167617664d",
+   "source": {
+    "hf_dataset": "earino/chaosnli",
+    "revision": "bf8d66a1d3434ac8b90ffc392b1b5e44bdf7e439",
+    "path": "raw/chaosNLI_mnli_m.jsonl"
+   }
+  },
+  {
+   "file": "earino__chaosnli/raw/chaosNLI_snli.jsonl",
+   "bytes": 768107,
+   "sha256": "99f9015ddda7d85f66a087452bc30d53974314fe27e7d589e2f41ad44bd509c1",
+   "source": {
+    "hf_dataset": "earino/chaosnli",
+    "revision": "bf8d66a1d3434ac8b90ffc392b1b5e44bdf7e439",
+    "path": "raw/chaosNLI_snli.jsonl"
+   }
+  },
+  {
+   "file": "facebook__anli/plain_text/dev_r1-00000-of-00001.parquet",
+   "bytes": 351479,
+   "sha256": "72e27463177b4363be80f1fc6ccdaab44ddaeb65db58c2280f94690e15468334",
+   "source": {
+    "hf_dataset": "facebook/anli",
+    "revision": "8e4813d81f46d313dac7892e1c28076917cfcdf9",
+    "path": "plain_text/dev_r1-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "facebook__anli/plain_text/dev_r2-00000-of-00001.parquet",
+   "bytes": 350606,
+   "sha256": "43e4673665decf0b0e8487e55f98285423cb356b985e206fe5998defae2e38fa",
+   "source": {
+    "hf_dataset": "facebook/anli",
+    "revision": "8e4813d81f46d313dac7892e1c28076917cfcdf9",
+    "path": "plain_text/dev_r2-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "facebook__anli/plain_text/dev_r3-00000-of-00001.parquet",
+   "bytes": 434044,
+   "sha256": "61775ec09351f6011ce4dc9ea313f457bba6e11d7665d34d95c111665023a83e",
+   "source": {
+    "hf_dataset": "facebook/anli",
+    "revision": "8e4813d81f46d313dac7892e1c28076917cfcdf9",
+    "path": "plain_text/dev_r3-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "fstandhartinger__jevbench/datasets/public/easy.jsonl",
+   "bytes": 37220,
+   "sha256": "231df3c2c8e88a1a8c137ebe85de96ba70fabd330849098ac7b3c52c70b7172b",
+   "source": {
+    "github": "fstandhartinger/jevbench",
+    "commit": "bb05a335bc809e61b20c0f745d25499a82b326fc",
+    "path": "datasets/public/easy.jsonl"
+   }
+  },
+  {
+   "file": "fstandhartinger__jevbench/datasets/public/hard.jsonl",
+   "bytes": 651848,
+   "sha256": "89e9e6becb33ed88c1de7d42dcc87531b2fb64cfaef4e1986faf7c37b3f80ebb",
+   "source": {
+    "github": "fstandhartinger/jevbench",
+    "commit": "bb05a335bc809e61b20c0f745d25499a82b326fc",
+    "path": "datasets/public/hard.jsonl"
+   }
+  },
+  {
+   "file": "fstandhartinger__jevbench/datasets/public/original.jsonl",
+   "bytes": 57237,
+   "sha256": "5c2414edb3006b8bfcb70fda433f0f9ca015759433849f8d3104328a1f7c4180",
+   "source": {
+    "github": "fstandhartinger/jevbench",
+    "commit": "bb05a335bc809e61b20c0f745d25499a82b326fc",
+    "path": "datasets/public/original.jsonl"
+   }
+  },
+  {
+   "file": "google-research-datasets__paws/labeled_final/test-00000-of-00001.parquet",
+   "bytes": 1235128,
+   "sha256": "ae342ff12bb84b84b95f468abf5db6cb7c7bd578271299fe9c99be75b8132f4d",
+   "source": {
+    "hf_dataset": "google-research-datasets/paws",
+    "revision": "161ece9501cf0a11f3e48bd356eaa82de46d6a09",
+    "path": "labeled_final/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "hotpotqa__hotpot_qa/distractor/train-00000-of-00002.parquet",
+   "bytes": 165624177,
+   "sha256": "76d3bb3048a7cc73c1958107c0c5872a00d7e7d00c105b81e92f6769e7822e68",
+   "source": {
+    "hf_dataset": "hotpotqa/hotpot_qa",
+    "revision": "1908d6afbbead072334abe2965f91bd2709910ab",
+    "path": "distractor/train-00000-of-00002.parquet"
+   }
+  },
+  {
+   "file": "hotpotqa__hotpot_qa/distractor/train-00001-of-00002.parquet",
+   "bytes": 166162479,
+   "sha256": "713661628434fbb19fff7392e2e321e4ed107e3c7c7784d0690946e5f722763f",
+   "source": {
+    "hf_dataset": "hotpotqa/hotpot_qa",
+    "revision": "1908d6afbbead072334abe2965f91bd2709910ab",
+    "path": "distractor/train-00001-of-00002.parquet"
+   }
+  },
+  {
+   "file": "hotpotqa__hotpot_qa/distractor/validation-00000-of-00001.parquet",
+   "bytes": 27452575,
+   "sha256": "c20b638ca82b21d04fe12e14ff417ad05153d4d215a65de54497fca4e972f7c6",
+   "source": {
+    "hf_dataset": "hotpotqa/hotpot_qa",
+    "revision": "1908d6afbbead072334abe2965f91bd2709910ab",
+    "path": "distractor/validation-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "hover-nlp__hover/data/hover_train_release_v1.1.json",
+   "bytes": 9205582,
+   "sha256": "1f1cd57abd616fa00c70bdc575ce77c16fc6cf1a6cffd5ff87c208030a336bb6",
+   "source": {
+    "github": "hover-nlp/hover",
+    "commit": "39b84697f196308f398a251a7aea9b82ae0f0562",
+    "path": "data/hover/hover_train_release_v1.1.json"
+   }
+  },
+  {
+   "file": "jaredpalmer__kev/evals/v7/decision-v7/train.jsonl",
+   "bytes": 18679889,
+   "sha256": "7ed5254b5cb5291baefaceb09edf7e13110258211518c8038f4a12c11bd628ad",
+   "source": {
+    "hf_dataset": "jaredpalmer/kev-suites",
+    "revision": "a88f56db5341397299137cb68775c2ea6e3f68cb",
+    "path": "v7/decision-v7/train.jsonl"
+   }
+  },
+  {
+   "file": "jaredpalmer__kev/evals/v9/transfer-v9/development.jsonl",
+   "bytes": 1424590,
+   "sha256": "53872ba045564315cf3c3dd8fb656e76441c6c514b1a7ff985ff0db3955710cf",
+   "source": {
+    "github": "jaredpalmer/kev",
+    "commit": "0fe8fc97c2bcc247fa3efb6e5c32af4e99770e91",
+    "path": "evals/v9/transfer-v9/development.jsonl"
+   }
+  },
+  {
+   "file": "little-g-ai__Sys1Cal-v1/datasets/generated/v0.1.0_tiny_cleanvars_binary.jsonl",
+   "bytes": 427615,
+   "sha256": "cbd896e8acc0455b5e187cc936ab6c5306ad781e43e5f722bca422b399604f8e",
+   "source": {
+    "github": "little-g-ai/Sys1Cal-v1",
+    "commit": "9c97b8ea27e25c162eeb5f2e6fa09ac7d5c8fb30",
+    "path": "datasets/generated/v0.1.0_tiny_cleanvars_binary.jsonl"
+   }
+  },
+  {
+   "file": "lukaemon__bbh/boolean_expressions/test-00000-of-00001.parquet",
+   "bytes": 4524,
+   "sha256": "c5de3d5c30fecdee9fdd6348f4fb324f64be8597f28e9d60d4e647e06df28b27",
+   "source": {
+    "hf_dataset": "lukaemon/bbh",
+    "revision": "982bb89fd79532a8ac676a61fc42eb1aeec63f99",
+    "path": "boolean_expressions/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "lukaemon__bbh/logical_deduction_five_objects/test-00000-of-00001.parquet",
+   "bytes": 32081,
+   "sha256": "413dd1a9abdaeffa6ec7869c21914050f0604adec94048c60071b80889189a8e",
+   "source": {
+    "hf_dataset": "lukaemon/bbh",
+    "revision": "982bb89fd79532a8ac676a61fc42eb1aeec63f99",
+    "path": "logical_deduction_five_objects/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "lukaemon__bbh/logical_deduction_seven_objects/test-00000-of-00001.parquet",
+   "bytes": 42142,
+   "sha256": "50912eb454be853c03409555f5aae43ff3a0bad1775ee29c13f917bee972105a",
+   "source": {
+    "hf_dataset": "lukaemon/bbh",
+    "revision": "982bb89fd79532a8ac676a61fc42eb1aeec63f99",
+    "path": "logical_deduction_seven_objects/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "lukaemon__bbh/logical_deduction_three_objects/test-00000-of-00001.parquet",
+   "bytes": 20579,
+   "sha256": "69666640c655c70e4ee6628dd2475e911981b0e828e43ac69bbb9d8144144586",
+   "source": {
+    "hf_dataset": "lukaemon/bbh",
+    "revision": "982bb89fd79532a8ac676a61fc42eb1aeec63f99",
+    "path": "logical_deduction_three_objects/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "lukaemon__bbh/tracking_shuffled_objects_five_objects/test-00000-of-00001.parquet",
+   "bytes": 35811,
+   "sha256": "ba3cdb666a305b3bd87be668e16c66b6bc7ada0a71cd53bc25f65932a814d00a",
+   "source": {
+    "hf_dataset": "lukaemon/bbh",
+    "revision": "982bb89fd79532a8ac676a61fc42eb1aeec63f99",
+    "path": "tracking_shuffled_objects_five_objects/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "lukaemon__bbh/tracking_shuffled_objects_seven_objects/test-00000-of-00001.parquet",
+   "bytes": 47417,
+   "sha256": "23f26fa036a7314b86e6eca4ad985218930645b47a31f920b65da70b22f98227",
+   "source": {
+    "hf_dataset": "lukaemon/bbh",
+    "revision": "982bb89fd79532a8ac676a61fc42eb1aeec63f99",
+    "path": "tracking_shuffled_objects_seven_objects/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "lukaemon__bbh/tracking_shuffled_objects_three_objects/test-00000-of-00001.parquet",
+   "bytes": 24144,
+   "sha256": "b3d557e426ac57f4b2194b4be5d810eb4425ff5a2c776d9b0bb6572b246c4564",
+   "source": {
+    "hf_dataset": "lukaemon/bbh",
+    "revision": "982bb89fd79532a8ac676a61fc42eb1aeec63f99",
+    "path": "tracking_shuffled_objects_three_objects/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "lukaemon__bbh/web_of_lies/test-00000-of-00001.parquet",
+   "bytes": 15125,
+   "sha256": "ad0a5707016259f060927a7a777bb0434c5e5293da0f6570e4e185919c434f11",
+   "source": {
+    "hf_dataset": "lukaemon/bbh",
+    "revision": "982bb89fd79532a8ac676a61fc42eb1aeec63f99",
+    "path": "web_of_lies/test-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "nyu-mll__glue/qnli/validation-00000-of-00001.parquet",
+   "bytes": 872062,
+   "sha256": "e69311b81dc65589286091d9905a27617a90436dd215c7a59832fa8f4f336169",
+   "source": {
+    "hf_dataset": "nyu-mll/glue",
+    "revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+    "path": "qnli/validation-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "nyu-mll__multi_nli/data/validation_mismatched-00000-of-00001.parquet",
+   "bytes": 5104992,
+   "sha256": "6b0e1231cebedd255000a7d1732af37ad0500902239db625e231ed77c0c8f2f8",
+   "source": {
+    "hf_dataset": "nyu-mll/multi_nli",
+    "revision": "da70db2af9d09693783c3320c4249840212ee221",
+    "path": "data/validation_mismatched-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "nyu-mll__quality/data/v1.0.1/QuALITY.v1.0.1.htmlstripped.dev",
+   "bytes": 8804985,
+   "sha256": "99852d874994078e4b4112b71ceca4dd35aa3a24ff6d3a35c051be25295b4fef",
+   "source": {
+    "github": "nyu-mll/quality",
+    "commit": "f84977c40dbfef70c9cab48037b7becfc8e45f73",
+    "path": "data/v1.0.1/QuALITY.v1.0.1.htmlstripped.dev"
+   }
+  },
+  {
+   "file": "rajpurkar__squad_v2_official/dev-v2.0.json",
+   "bytes": 4370528,
+   "sha256": "80a5225e94905956a6446d296ca1093975c4d3b3260f1d6c8f68bc2ab77182d8",
+   "source": {
+    "url": "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json"
+   }
+  },
+  {
+   "file": "rajpurkar__squad_v2_official/train-v2.0.json",
+   "bytes": 42123633,
+   "sha256": "68dcfbb971bd3e96d5b46c7177b16c1a4e7d4bdef19fb204502738552dede002",
+   "source": {
+    "url": "https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v2.0.json"
+   }
+  },
+  {
+   "file": "stanfordnlp__contract-nli/contract-nli/test.json",
+   "bytes": 2260203,
+   "sha256": "460267b56052a2dc5aead98eb35eadef9e6734d5723d37b4a9790e410f812387",
+   "source": {
+    "url": "https://stanfordnlp.github.io/contract-nli/resources/contract-nli.zip",
+    "zip_member": "contract-nli/test.json",
+    "zip_sha256": "e03fc77bbf8b53e2976a250e81d8a294bc3d5e5fb014521e477dee9340d6287b"
+   }
+  },
+  {
+   "file": "tasksource__proofwriter/data/test-00000-of-00001-3e27b013c60e12d8.parquet",
+   "bytes": 8682893,
+   "sha256": "2d94b734fd431bf1ccc780ba3ca56a8bbe190e640f5dc062f764520019e534de",
+   "source": {
+    "hf_dataset": "tasksource/proofwriter",
+    "revision": "ee4d22d49b8486786cbc01c0b6f6f6266e56f3bd",
+    "path": "data/test-00000-of-00001-3e27b013c60e12d8.parquet"
+   }
+  },
+  {
+   "file": "tasksource__proofwriter/data/train-00000-of-00002-6176cf3d78f48858.parquet",
+   "bytes": 15965941,
+   "sha256": "a37758ca145e681935ec371538b6b36ed97710260651a43ce3825256ed7a84d9",
+   "source": {
+    "hf_dataset": "tasksource/proofwriter",
+    "revision": "ee4d22d49b8486786cbc01c0b6f6f6266e56f3bd",
+    "path": "data/train-00000-of-00002-6176cf3d78f48858.parquet"
+   }
+  },
+  {
+   "file": "tasksource__proofwriter/data/train-00001-of-00002-901eaba2151bde61.parquet",
+   "bytes": 14034421,
+   "sha256": "9ff01fb37a3e4677901a219633df6d3a67eabc924a641f3c581374ae0f8e3f0d",
+   "source": {
+    "hf_dataset": "tasksource/proofwriter",
+    "revision": "ee4d22d49b8486786cbc01c0b6f6f6266e56f3bd",
+    "path": "data/train-00001-of-00002-901eaba2151bde61.parquet"
+   }
+  },
+  {
+   "file": "tau__commonsense_qa/data/validation-00000-of-00001.parquet",
+   "bytes": 160240,
+   "sha256": "bdbd9bf9cc4d2349b24901038b2ab2f58e10e4e507ad2fd425dca55cd3cb6660",
+   "source": {
+    "hf_dataset": "tau/commonsense_qa",
+    "revision": "94630fe30dad47192a8546eb75f094926d47e155",
+    "path": "data/validation-00000-of-00001.parquet"
+   }
+  },
+  {
+   "file": "yale-nlp__FOLIO/folio_v2_train.jsonl",
+   "bytes": 1013321,
+   "sha256": "6155d4a859fbc367530f2c355032e42b9c6d4e435337890feb6e948331fc79a9",
+   "source": {
+    "hf_dataset": "yale-nlp/FOLIO",
+    "revision": "4c1f14bf39ca6a6de242bd8f75ef313b4b436818",
+    "path": "folio_v2_train.jsonl"
+   }
+  },
+  {
+   "file": "yale-nlp__FOLIO/folio_v2_validation.jsonl",
+   "bytes": 208470,
+   "sha256": "5273a939ad5ffff5b8f1e21b6a81f07b0653be11bead084f40e067269b7b1aaf",
+   "source": {
+    "hf_dataset": "yale-nlp/FOLIO",
+    "revision": "4c1f14bf39ca6a6de242bd8f75ef313b4b436818",
+    "path": "folio_v2_validation.jsonl"
+   }
+  }
+ ]
+}

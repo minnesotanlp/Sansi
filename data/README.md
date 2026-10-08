@@ -113,15 +113,17 @@ A crowd-labelled item (ChaosNLI) or an item with exact probabilities (Sys1Cal) h
 
 ### Raw files
 
-`data.build_main` reads the source datasets from the folder given as `--raw`. The code does not record download
-addresses, so the table below lists what the code reads, and you have to obtain every dataset from its authors and
-arrange the files as listed. Folder names follow the pattern `<owner>__<name>`. The module docstring of `data/real.py`
-states that the folders are laid out as `huggingface_hub.snapshot_download(local_dir=<owner>__<name>)` leaves them,
-and that the CLUTRR csv files and the HoVer release file are official files that were fetched separately.
+`data.build_main` reads the source datasets from the folder given as `--raw`. `data.download_raw` fills that folder:
+it downloads every file that the build reads at the revision the paper's datasets were built from, and checks its
+sha256. `data/sources.json` lists the 57 files (1.3 GB) with their origin: a Hugging Face dataset at a commit, a
+GitHub repository at a commit (CLUTRR, HoVer, QuALITY, Sys1Cal, JevBench and Kev's transfer-v9 file), or the
+official address (SQuAD 2.0 and ContractNLI, which have no versions; their sha256 is checked all the same). Folder
+names follow the pattern `<owner>__<name>`. FOLIO is gated: accept its terms on its Hugging Face page and log in with
+`hf auth login` before the download. The table below lists what the build reads from each folder.
 
 | Folder under `--raw` | Files that are read | Used for |
 |---|---|---|
-| `jaredpalmer__kev` | `evals/v7/decision-v7/train.jsonl`, `evals/v9/transfer-v9/development.jsonl` | the Kev sources (the docstring of `data.real.kev` names the repository github.com/jaredpalmer/kev) |
+| `jaredpalmer__kev` | `evals/v7/decision-v7/train.jsonl`, `evals/v9/transfer-v9/development.jsonl` | the Kev sources (the first from the Hugging Face dataset jaredpalmer/kev-suites, the second from the repository github.com/jaredpalmer/kev) |
 | `tasksource__proofwriter` | `data/train-*.parquet`, `data/test-*.parquet` (configurations `depth-5` and `NatLang`) | ProofWriter |
 | `CLUTRR__v1` | `data/gen_train234_test2to10/train.csv`, `validation.csv`, `test.csv` | CLUTRR |
 | `bdsaglam__musique` | `musique_ans_v1.0_train.jsonl`, `musique_ans_v1.0_dev.jsonl`, `musique_full_v1.0_train.jsonl`, `musique_full_v1.0_dev.jsonl` | MuSiQue (types B, C and D) |
@@ -150,14 +152,21 @@ and that the CLUTRR csv files and the HoVer release file are official files that
 | `tau__commonsense_qa` | `data/validation-*.parquet` | CommonsenseQA |
 | `fstandhartinger__jevbench` | `datasets/public/easy.jsonl`, `original.jsonl`, `hard.jsonl` | JevBench (the docstring of `data.real.jevbench` names the repository github.com/fstandhartinger/jevbench; public files only) |
 
-The parquet and csv files are read with pandas, which needs `pyarrow` for parquet.
+The parquet and csv files are read with pandas, which needs `pyarrow` for parquet. The versions of pandas, pyarrow
+and tokenizers in `requirements.txt` are the ones with which the three datasets were rebuilt byte for byte.
 
 ### Commands
 
 ```
-python -m data.build_main --raw <raw data folder> --tokenizer <folder of Ouro-1.4B> --out datasets/main
-python -m data.check_overlap --root datasets/main --raw <raw data folder> --out results/overlap_main
+python -m data.download_raw --raw raw
+python -m data.build_main --raw raw --tokenizer raw/ByteDance__Ouro-1.4B --out datasets/main
+python -m data.verify --root datasets/main --dataset main
+python -m data.check_overlap --root datasets/main --raw raw --out results/overlap_main
 ```
+
+`data.download_raw` also fetches the tokenizer of Ouro-1.4B at the commit that was used (into
+`raw/ByteDance__Ouro-1.4B`); the full Ouro-1.4B folder gives the same token counts. It stops with a list of the files
+that are missing or differ.
 
 `data.build_main` writes `datasets/main/train/`, `dev/`, `test/`, `manifest.json` and `report.txt`, and prints one
 line per file. Expect 12,800 training items from 20 sources, 2,471 development items, and 10,027 test items from 59
@@ -168,6 +177,10 @@ versions of our datasets had already used them. Their ids are in `data/proofwrit
 `--exclude-ids` reads by default, so the command above draws the same ProofWriter items as the paper. With
 `--exclude-ids ''` the build uses all ProofWriter test questions, and the ProofWriter test and development items then
 differ from those of the paper. The selection of the other sources does not use the list.
+
+`data.verify` checks that a built folder is the paper's dataset: `data/checksums.json` holds the sha256 of the
+uncompressed content of every file of the three datasets and its number of items, and the check passes only when
+every file is identical. The manifest is not compared, since it records local paths.
 
 `data.check_overlap` is an independent check of a built dataset folder. For every pair of splits it counts the items
 of the later split that match an item of the earlier split by five criteria: the same item, the same state, the same
@@ -203,6 +216,9 @@ python -m data.build_depth --src datasets/generated_liars --out datasets/depth_l
 
 python -m data.generate_depth --out datasets/generated_swaps --families shuffle --probe
 python -m data.build_depth --src datasets/generated_swaps --out datasets/depth_swaps --tokenizer <folder of Ouro-1.4B> --families shuffle
+
+python -m data.verify --root datasets/depth_liars --dataset depth_liars
+python -m data.verify --root datasets/depth_swaps --dataset depth_swaps
 ```
 
 `data.generate_depth` generates the items of the families given by `--families` (default: `rooms`, `ledger`, `liars`
@@ -225,9 +241,11 @@ prompt. Expect 17,336 training, 1,241 development and 7,541 test items for `data
 
 | File | Content |
 |---|---|
+| `download_raw.py`, `sources.json` | downloads the raw files at the revisions the paper used and checks them; the list of these files |
 | `build_main.py` | builds the main set |
 | `proofwriter_excluded_ids.json` | the ProofWriter test questions that the main set leaves out |
 | `real.py` | converters from the source datasets to the item format |
+| `verify.py`, `checksums.json` | checks that a built dataset is the paper's; the checksums of the paper's datasets |
 | `check_overlap.py` | the overlap check between the splits of a dataset folder |
 | `generate_depth.py` | generates the items of the depth tasks |
 | `build_depth.py` | turns generated items into a dataset folder |

@@ -680,8 +680,8 @@ class TrainOverlap:
         return keep
 
 
-def build(raw, used):
-    """The training items T and the test candidates X, each {source: items}. used: ids of ProofWriter test questions
+def build(raw, pw_excluded):
+    """The training items T and the test candidates X, each {source: items}. pw_excluded: ids of ProofWriter test questions
     that are left out of the test candidates (--exclude-ids)."""
     T, X = {}, {}
     names = real.clutrr_names(raw)
@@ -782,12 +782,12 @@ def build(raw, used):
     X["yahoo_answers"] = tag(sample(pool_of(yahoo(raw), "yahoo_answers"), 200, "yahoo"), "A", "far", "yahoo_answers")
 
     # B: ProofWriter (depth 0-5; tests only from test questions that are not listed in --exclude-ids), CLUTRR
-    note("ProofWriter test questions listed in --exclude-ids, left out:", len(used))
+    note("ProofWriter test questions listed in --exclude-ids, left out:", len(pw_excluded))
     pw_te = pool_of([it for it in real.proofwriter(raw, "test", ["depth-5"], 10 ** 9, SEED, max_qdep=5)
-                     if it["meta"]["id"] not in used], "proofwriter_id")
+                     if it["meta"]["id"] not in pw_excluded], "proofwriter_id")
     X["proofwriter_id"] = tag(stratified(pw_te, [K, ANS], 300, "pw_te"), "B", "in_dist", "proofwriter_id")
     nl = pool_of([it for it in real.proofwriter(raw, "test", ["NatLang"], 10 ** 9, SEED, max_qdep=5)
-                  if it["meta"]["id"] not in used], "proofwriter_natlang")
+                  if it["meta"]["id"] not in pw_excluded], "proofwriter_natlang")
     X["proofwriter_natlang"] = tag(stratified(nl, [K, ANS], 400, "pw_nl"), "B", "near", "proofwriter_natlang")
     train_stories = {it["meta"]["story_key"] for it in cl_tr_all}
     cl_te = [story_key(it) for it in pool_of(real.clutrr(raw, "test"), "clutrr")]
@@ -979,8 +979,8 @@ def main():
     from sansi.model import render_prompt
     tok = AutoTokenizer.from_pretrained(args.tokenizer, trust_remote_code=True)
 
-    used = set(json.load(open(args.exclude_ids))) if args.exclude_ids else set()
-    T, X = build(args.raw, used)
+    pw_excluded = set(json.load(open(args.exclude_ids))) if args.exclude_ids else set()
+    T, X = build(args.raw, pw_excluded)
     JB = {"jevbench_easy": real.jevbench(args.raw, "easy"), "jevbench_standard": real.jevbench(args.raw, "original"),
           "jevbench_hard": real.jevbench(args.raw, "hard")}
     for k, v in JB.items():

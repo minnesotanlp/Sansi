@@ -4,9 +4,12 @@ transformers==4.57.1
 peft==0.21.0
 numpy==2.4.6
 
-# data/build_main.py reads parquet and csv files with pandas; the versions used were not recorded.
-pandas
-pyarrow
+# The data scripts: build_main reads parquet and csv files with pandas, the tokenizer counts meta.tokens, and
+# download_raw fetches the raw files. With these versions the datasets are rebuilt byte for byte (data/verify.py).
+pandas==3.0.6
+pyarrow==25.0.1
+tokenizers==0.22.2
+huggingface_hub==0.36.2
 
 # Installed in that environment, but not imported by this code:
 # accelerate==1.15.0

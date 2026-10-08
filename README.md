@@ -68,15 +68,19 @@ pip install -r requirements.txt
 The Qwen3.5 backbones were run in a second environment with torch 2.7.1 and transformers 5.18.0.
 
 You also need the backbones (Ouro-1.4B for SanSi; Ouro-2.6B, SmolLM2-1.7B, Qwen3.5-2B-Base and Qwen3.5-4B-Base for
-the other models) and, for the main set, the source datasets listed in `data/README.md`. The scripts take local
-folders: `--model` and `--tokenizer` for a backbone, `--raw` for the source datasets.
+the other models) and, for the main set, the source datasets, which `data.download_raw` downloads at the revisions
+the paper used (`data/README.md`). The scripts take local folders: `--model` and `--tokenizer` for a backbone, `--raw`
+for the source datasets.
 
 ## Quick start
 
-1. Build the main set. This writes `datasets/main` with 12,800 training, 2,471 development and 10,027 test items.
+1. Download the source datasets and build the main set. This writes `datasets/main` with 12,800 training, 2,471
+   development and 10,027 test items; `data.verify` checks that every file is identical to the paper's.
 
    ```
-   python -m data.build_main --raw <raw data folder> --tokenizer <Ouro-1.4B> --out datasets/main
+   python -m data.download_raw --raw raw
+   python -m data.build_main --raw raw --tokenizer raw/ByteDance__Ouro-1.4B --out datasets/main
+   python -m data.verify --root datasets/main --dataset main
    ```
 
 2. Train SanSi with one seed. This writes the run folder `runs/sansi_s0` with logs, evaluations on the development

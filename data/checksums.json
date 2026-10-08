@@ -1,0 +1,618 @@
+{
+ "about": "sha256 of the uncompressed content of every file of the three datasets of the paper, and its number of items; data.verify compares a built folder with it.",
+ "main": {
+  "items": 25298,
+  "files": {
+   "dev/anli_dev.jsonl.gz": {
+    "items": 60,
+    "sha256": "2007f98ce7ef42ed268b1353c5f5bb726d4511f265de83511c75b6925f4d7339"
+   },
+   "dev/arc_challenge.jsonl.gz": {
+    "items": 80,
+    "sha256": "c8293f384763d3c6273629d52f4ef66bacabeace4f7f98b1240721b4ceec5796"
+   },
+   "dev/arc_easy.jsonl.gz": {
+    "items": 30,
+    "sha256": "2c1ee23de1d80fb95ca086cb6f2eb6cbe556edfb2161213847bacc0ab54f8858"
+   },
+   "dev/bbh.jsonl.gz": {
+    "items": 120,
+    "sha256": "85a125fccd5406f29ff343319265ec09069d79f73ecb0930c3862c8ff113f96c"
+   },
+   "dev/chaosnli_id.jsonl.gz": {
+    "items": 20,
+    "sha256": "0b351725ce37269d3855abd327e56ddbf63e45ba98be9e731ee2b4f6895639f1"
+   },
+   "dev/chaosnli_mnli.jsonl.gz": {
+    "items": 100,
+    "sha256": "a038306ed9800910bee087eea3b036fde4f8c6d4b6e819345de2330724e6d090"
+   },
+   "dev/clutrr_id.jsonl.gz": {
+    "items": 40,
+    "sha256": "18c3ded84946c1e95c44115bdb5c2129c052d43629cf95bfc6e7997e7313aa97"
+   },
+   "dev/clutrr_long.jsonl.gz": {
+    "items": 120,
+    "sha256": "9fdfb50e6020d5c64d15482b1be0446addbbf37fd7b590460252d2e05582c985"
+   },
+   "dev/commonsense_qa.jsonl.gz": {
+    "items": 60,
+    "sha256": "4e8b892ceb388619b4dd77b3d3098cf66aa5a93863a64a8a974c3ea3d240cc96"
+   },
+   "dev/contract_nli.jsonl.gz": {
+    "items": 60,
+    "sha256": "4689a0781677c893ab6ee8ff57ab3428de171ebaf164bd8c65ac4dba217f03be"
+   },
+   "dev/emotion.jsonl.gz": {
+    "items": 60,
+    "sha256": "0672fd5d8c5d9a1b12ce2b093950cb409864032ff6fb7da381190469443b055c"
+   },
+   "dev/folio.jsonl.gz": {
+    "items": 80,
+    "sha256": "4a3120ac685527b3dedb5725fc20e6ea59bc36497103db842a6186317314b005"
+   },
+   "dev/hotpotqa_lengths.jsonl.gz": {
+    "items": 30,
+    "sha256": "015a719e2169ef472316ee421ade9c96a185e109039522c983a7115a30a08dd1"
+   },
+   "dev/hover.jsonl.gz": {
+    "items": 90,
+    "sha256": "7a2050696fc9915629e026a1e0f22cec5303e92124953d8149c7575e35107465"
+   },
+   "dev/kev_agnews_id.jsonl.gz": {
+    "items": 9,
+    "sha256": "7355dcfe5bfc097735c6a6aadc0dfd7bdb053f84cf5ae5da7bab55b945f2552e"
+   },
+   "dev/kev_amazon_id.jsonl.gz": {
+    "items": 10,
+    "sha256": "ff85f5fb6cdf4d01f94390d3edf29733a3f9423099b1194e33644e5e6a914d02"
+   },
+   "dev/kev_banking77_id.jsonl.gz": {
+    "items": 10,
+    "sha256": "d33378701b39dbd993925070cf21bc4cb8832f779e77d1d78c19f71a909bfe1d"
+   },
+   "dev/kev_boolq_id.jsonl.gz": {
+    "items": 20,
+    "sha256": "ea01d6287116e616141a453368195d598d7c4d8c26d7b71767e852a6b8ac4287"
+   },
+   "dev/kev_compositional_id.jsonl.gz": {
+    "items": 30,
+    "sha256": "7332e3e663acfa2e6012dc35778a6d1da068087e3a979cff85b4d2ff855604e0"
+   },
+   "dev/kev_dbpedia14_id.jsonl.gz": {
+    "items": 10,
+    "sha256": "507e1a2d75a62ebaa7f735c9ced267396243aa4be7bc52566f10125514a632f8"
+   },
+   "dev/kev_imdb_id.jsonl.gz": {
+    "items": 10,
+    "sha256": "fe2a9a5df8766ff576c8a37c61268b49c46ff608b6bd661f9b98acd451e9f18f"
+   },
+   "dev/kev_legacy_policy_id.jsonl.gz": {
+    "items": 30,
+    "sha256": "6f11f70f003a7718e0e2b0b1474df443f91794e20a16ec2e36a1d9cbb23c33b2"
+   },
+   "dev/kev_mnli_id.jsonl.gz": {
+    "items": 20,
+    "sha256": "3f34ad9a984306041a5b02670173d2830d7e47c876761ec70d3f7c8aea03eb33"
+   },
+   "dev/kev_sst5_id.jsonl.gz": {
+    "items": 10,
+    "sha256": "ba523a2f422d5eb31df56ddd0b9993e79b4434194b23bef46f7bc180a6934bc1"
+   },
+   "dev/kev_trec_id.jsonl.gz": {
+    "items": 10,
+    "sha256": "7bbb9629618f35cebcfb519258c7d9beeb3989e5e11e5fbc526d2eb468d80622"
+   },
+   "dev/kev_v9_buried.jsonl.gz": {
+    "items": 16,
+    "sha256": "8224708cf4af828236a49a2c242b32c5f40aa32a87ac3999a49116ace8295372"
+   },
+   "dev/kev_v9_composition_holdout.jsonl.gz": {
+    "items": 15,
+    "sha256": "0ba8494c169be67e90b5f94fbcf75b45f6713a0cc03d0531d0577c3613796b59"
+   },
+   "dev/kev_v9_emotion.jsonl.gz": {
+    "items": 16,
+    "sha256": "d95169d84c1a94e8f002f830fb3d479a6c3e6f1b542a1d5a306b9a2b844be6ad"
+   },
+   "dev/kev_v9_legacy_holdout.jsonl.gz": {
+    "items": 16,
+    "sha256": "8e9700224538f389ab15feeb49da69de9eca39559e78c39d6160673f15ad875c"
+   },
+   "dev/kev_v9_mmlu.jsonl.gz": {
+    "items": 16,
+    "sha256": "751c82b202c57abdb765c8e9f4f8afd29e7113ab45395c48713ef983a3224e7d"
+   },
+   "dev/kev_v9_mmlu_pro.jsonl.gz": {
+    "items": 40,
+    "sha256": "937473c7faccead2b7dd5a05b86dacdd31a7790b9950a75c20528c734637f3e5"
+   },
+   "dev/kev_v9_paws.jsonl.gz": {
+    "items": 16,
+    "sha256": "e39ac92cc8e7868c2b4bfbf388432253fc3348617e203bbde5d00cf2b2317503"
+   },
+   "dev/kev_v9_qnli.jsonl.gz": {
+    "items": 16,
+    "sha256": "dd75dbfe95e0f7a55d585fe535a4c6d9ed636250452555db64ac056e1e25db9f"
+   },
+   "dev/kev_v9_sciq.jsonl.gz": {
+    "items": 16,
+    "sha256": "69c6b9d8aaa7a22ba495f5a5351b554fa0ccbfbfd73e2e768ddd8dca58411370"
+   },
+   "dev/kev_v9_tweet_offensive.jsonl.gz": {
+    "items": 16,
+    "sha256": "b09cc0babb47612c83f685103a3a6ecb395016c0251e281e98cf0e4955d1d3a2"
+   },
+   "dev/kev_v9_unknowable_pairs.jsonl.gz": {
+    "items": 37,
+    "sha256": "7776e32d8b601c296f3af98491c54e0002ee5cdf493405a062b9a8bff092e925"
+   },
+   "dev/kev_yelp_id.jsonl.gz": {
+    "items": 10,
+    "sha256": "32c793c340772780ff9b51d1d517b86be052cc386ee848f9364e6ad544202068"
+   },
+   "dev/mmlu.jsonl.gz": {
+    "items": 120,
+    "sha256": "b64b688e9f9db867b529d6ba9457e76765b4da9ec6d3f5c0fab9ebc18dd2b41b"
+   },
+   "dev/mmlu_pro.jsonl.gz": {
+    "items": 60,
+    "sha256": "1191bbf309b662e633ab74b3794bf2ec61633b1d953abeed7d65c65231b80237"
+   },
+   "dev/mnli_mismatched.jsonl.gz": {
+    "items": 60,
+    "sha256": "c0b0691d4d751c5e0875fab35613bcbc80a4d9b8e6e8cfd172257dfec5eb0d43"
+   },
+   "dev/musique_4hop.jsonl.gz": {
+    "items": 63,
+    "sha256": "ebaece046183db8b9489ee9dce60c0b567c6fb385ce238f5ec4d20428aa4e1dc"
+   },
+   "dev/musique_id.jsonl.gz": {
+    "items": 40,
+    "sha256": "cbcf5add182ddb3778a2314171919ec1270dc522dbb390c1fa60a6959c7c5f27"
+   },
+   "dev/musique_lengths.jsonl.gz": {
+    "items": 63,
+    "sha256": "307241bcb751df8b483d1c96f93a53240c39d8c756c8295ed77e0cf7628fec1a"
+   },
+   "dev/musique_pairs_4hop.jsonl.gz": {
+    "items": 60,
+    "sha256": "f3408bbf8803efb191a05dd358e1ee61721f47b36667fe473a6b9ffc594444c2"
+   },
+   "dev/musique_pairs_id.jsonl.gz": {
+    "items": 42,
+    "sha256": "9bcbbce730e59bc26b6b14348535a257bc538143ba9c5eb52769d7c97e36304c"
+   },
+   "dev/paws.jsonl.gz": {
+    "items": 50,
+    "sha256": "c7e25a0aedcb5dd21c848e16421eb06fc117ea8698a8f0e68b32b84b1d57ca5e"
+   },
+   "dev/proofwriter_id.jsonl.gz": {
+    "items": 60,
+    "sha256": "4fd574d53f0085185ea2cc666185d5ad6375bd0c09c125aeac9a2387cfe30490"
+   },
+   "dev/proofwriter_natlang.jsonl.gz": {
+    "items": 81,
+    "sha256": "cd82fcc3c5822e3e329e0a8e0961087bc2a4112354366c18ce0a2b8ddec560a8"
+   },
+   "dev/qnli.jsonl.gz": {
+    "items": 50,
+    "sha256": "755a8e631dd2a5c704b07a9a98eeb9922286c4a80071c047e084098b1c1d28bd"
+   },
+   "dev/quality.jsonl.gz": {
+    "items": 60,
+    "sha256": "79dc8938b84cd9429cf9d865162f73dcbc8686abb5ea3bcf9bbe6c76c999593e"
+   },
+   "dev/sciq.jsonl.gz": {
+    "items": 30,
+    "sha256": "061cfb594eb22499a93e1929aad722da446a48ae16d29447c109261dcbe07840"
+   },
+   "dev/squad2_id.jsonl.gz": {
+    "items": 60,
+    "sha256": "fde253f0513da27af064f525bae3d495059ccf6230292bc2e87043fcb46081d5"
+   },
+   "dev/sys1cal.jsonl.gz": {
+    "items": 73,
+    "sha256": "f623e383c41941fc9fd0476f03888955d3d3a71c8f6c4287aca3faf312e95f5f"
+   },
+   "dev/tweet_eval.jsonl.gz": {
+    "items": 60,
+    "sha256": "00c5323f093f99dc866e0f3cd495706a972a17e39e8e48ca45f63bec1bfce634"
+   },
+   "dev/wanli.jsonl.gz": {
+    "items": 50,
+    "sha256": "76f22df9cf1b9fa5adfc149c1e84c12a39edd4278d655860824092918a5b4024"
+   },
+   "dev/yahoo_answers.jsonl.gz": {
+    "items": 40,
+    "sha256": "422edf0585b7540cf09e65ab74adb9f78a8d7077681fe8ad8f8dba5cff01d096"
+   },
+   "test/anli_dev.jsonl.gz": {
+    "items": 240,
+    "sha256": "09b69905ac1ffaedd5eacc2d5dd3767d7dcafc4ba0dc9a1711568224d5524dc0"
+   },
+   "test/arc_challenge.jsonl.gz": {
+    "items": 320,
+    "sha256": "d58f07966048bf8182987fac756e43f6e39989d446fba6d78d003311709fa637"
+   },
+   "test/arc_easy.jsonl.gz": {
+    "items": 120,
+    "sha256": "f302db4a4f696a504052df644be60e4a157379dc69047b87dc1a01849e529457"
+   },
+   "test/bbh.jsonl.gz": {
+    "items": 480,
+    "sha256": "0c29ee70ade626004c4ee694a241c248dcac4d477cdac35a95dba9dac20d3f55"
+   },
+   "test/chaosnli_id.jsonl.gz": {
+    "items": 80,
+    "sha256": "306f617aa0dbbd72fdf0ce23d5900cdabb94a2fb594c286390256bdb63fbe232"
+   },
+   "test/chaosnli_mnli.jsonl.gz": {
+    "items": 400,
+    "sha256": "c9d53ea577770bb6e9a73b929466666060b3c28c92c41d8ce85e155c587ac9f2"
+   },
+   "test/clutrr_id.jsonl.gz": {
+    "items": 160,
+    "sha256": "f579be529e48b33c1f9df3bc061dbc1779805b25ebcbe7c27a6db0c3f4295353"
+   },
+   "test/clutrr_long.jsonl.gz": {
+    "items": 480,
+    "sha256": "2a6297d16411f6cbbdb35959fc1c3697757035a70f05b21204c555165cf4cdd4"
+   },
+   "test/commonsense_qa.jsonl.gz": {
+    "items": 240,
+    "sha256": "a052c57d2c740b6697a3b33566869bcb0731f6a349abadfa2c5f4c9e11191296"
+   },
+   "test/contract_nli.jsonl.gz": {
+    "items": 240,
+    "sha256": "ff1394596f31cb8d3046bd8ed54e15c2871164720247d1a21de5ec4326e49c5b"
+   },
+   "test/emotion.jsonl.gz": {
+    "items": 240,
+    "sha256": "1d3759e6edfe1c7215e0f521ab0fd8ea034c500acf8d76c1d5169346e71b1ed8"
+   },
+   "test/folio.jsonl.gz": {
+    "items": 320,
+    "sha256": "27ab6076b9f0080e9a672d38309c9ec70c126c847cad4c1ed3d8effa5fc60b74"
+   },
+   "test/hotpotqa_lengths.jsonl.gz": {
+    "items": 120,
+    "sha256": "25d6c8f1bec3b9a9bfdec050c27a4b35e056c0f01c11e6c18b23ac3ea3510750"
+   },
+   "test/hover.jsonl.gz": {
+    "items": 360,
+    "sha256": "8534e913213de1974f9d179f7a2dfafe5ba426d284e29ae15434c55bd89a9751"
+   },
+   "test/jevbench_easy.jsonl.gz": {
+    "items": 48,
+    "sha256": "3a9c7d68cdfba9aad4bf89dfc07e76f9c7dc444611b1b8e242000bb8286b6413"
+   },
+   "test/jevbench_hard.jsonl.gz": {
+    "items": 111,
+    "sha256": "8e3acb7de6d159792945152825fabb70b4b9e84ecba42b72c244ecf42d736a3d"
+   },
+   "test/jevbench_standard.jsonl.gz": {
+    "items": 72,
+    "sha256": "6d6837fdea3bb1b1ca9aa1dbb142dcfafa0e82ded4b5a69111025b34857af6f6"
+   },
+   "test/kev_agnews_id.jsonl.gz": {
+    "items": 41,
+    "sha256": "04c89b95b400bb7ee234476e88fb7d6769fa8ec4666f3e48f62af9e4b9739d29"
+   },
+   "test/kev_amazon_id.jsonl.gz": {
+    "items": 40,
+    "sha256": "44ef22bedd458f7c7708b1c5c4df7dafb10c66761253d066cef0e2005e0a48e9"
+   },
+   "test/kev_banking77_id.jsonl.gz": {
+    "items": 40,
+    "sha256": "0a767d3d20e0d7f3baec0d84384c9669201677dfbded74386205a2fb1f4d3376"
+   },
+   "test/kev_boolq_id.jsonl.gz": {
+    "items": 80,
+    "sha256": "ae9c0fce299013f11b630b9072608648b7c9167b35af9dce50a1ca3c1d78d012"
+   },
+   "test/kev_compositional_id.jsonl.gz": {
+    "items": 120,
+    "sha256": "027286a9cfdfb586abd310fa2042648299ad0c41e5e6c39bc3c28e2347443d60"
+   },
+   "test/kev_dbpedia14_id.jsonl.gz": {
+    "items": 40,
+    "sha256": "e5eacbd4a9830eb35fd63a6c05f2f874c6d50c560e7e360fef03c895822e7fec"
+   },
+   "test/kev_imdb_id.jsonl.gz": {
+    "items": 40,
+    "sha256": "f6736408a2e4e26575a56ce1de62eea0fa7f3dc48b0b897fb349654762941fbd"
+   },
+   "test/kev_legacy_policy_id.jsonl.gz": {
+    "items": 120,
+    "sha256": "e1563e1e1b03ade18a24bfa5a39ea34e1aa368aa2c2d413e12c0780a96f2ad8e"
+   },
+   "test/kev_mnli_id.jsonl.gz": {
+    "items": 80,
+    "sha256": "560292b12be5dfef092845b3f8534f26425dfc3153f98c6b5a5b76cf2f662738"
+   },
+   "test/kev_sst5_id.jsonl.gz": {
+    "items": 40,
+    "sha256": "87c07d550edb9c694c7b60d3b371a3c10db4bbf55e19f050e938f901beaf37a0"
+   },
+   "test/kev_trec_id.jsonl.gz": {
+    "items": 40,
+    "sha256": "8fc54a5ef75a571a4096b27f346ebbb60dedadbe86943ec30ea568fc0f399524"
+   },
+   "test/kev_v9_buried.jsonl.gz": {
+    "items": 64,
+    "sha256": "2665b697becb47996c5147412edcb3df4e295f12584d9ba6e36abcda7c12a8f3"
+   },
+   "test/kev_v9_composition_holdout.jsonl.gz": {
+    "items": 57,
+    "sha256": "ff043523f9db861e66c9063b55ade40e0695ed36e191987d95d6c2f940ba1d1f"
+   },
+   "test/kev_v9_emotion.jsonl.gz": {
+    "items": 64,
+    "sha256": "b1c29e8bc691f061505e29a0bf4b9188a739a8c9b441dc2c919c35d4837c74aa"
+   },
+   "test/kev_v9_legacy_holdout.jsonl.gz": {
+    "items": 64,
+    "sha256": "ccf29fc8824a585429a0ac11f357c444830e2d81c68349fd5c2a2ad289a9fd04"
+   },
+   "test/kev_v9_mmlu.jsonl.gz": {
+    "items": 64,
+    "sha256": "e3b10a8c85245936d7a2109b27e8a0344722345f82ee92a378358964c4ca3b62"
+   },
+   "test/kev_v9_mmlu_pro.jsonl.gz": {
+    "items": 160,
+    "sha256": "3eb9ae5f3b83fabe75f973298d9ca8caf547ac2d63f0a9468741d6e0816e8e29"
+   },
+   "test/kev_v9_paws.jsonl.gz": {
+    "items": 64,
+    "sha256": "2ea6554c9fbd5dd8548aece5b2708f32e1dcc63cf87ba9b982672d202e6ae573"
+   },
+   "test/kev_v9_qnli.jsonl.gz": {
+    "items": 64,
+    "sha256": "71a0260714eb9a4a98030d5c3d5a2b48d0311fdf99e0cad32ffdad3e43df8056"
+   },
+   "test/kev_v9_sciq.jsonl.gz": {
+    "items": 64,
+    "sha256": "b1c8233e88a8573b4788cb362acab43ff4089b09056e17bce83c07fe85a1acf9"
+   },
+   "test/kev_v9_tweet_offensive.jsonl.gz": {
+    "items": 64,
+    "sha256": "c4ab7d5806c225eb5e9e54368488da46ab772a8e18303fcd03a37eeb6614cef7"
+   },
+   "test/kev_v9_unknowable_pairs.jsonl.gz": {
+    "items": 148,
+    "sha256": "19f20c500d533454a13f08c136994877e90f1259293575f8e43ad2837c4c0fd4"
+   },
+   "test/kev_yelp_id.jsonl.gz": {
+    "items": 40,
+    "sha256": "c516eb92376196ac3343488585c4431801fc63a691f6cfedc58f6fae9dcc8b85"
+   },
+   "test/mmlu.jsonl.gz": {
+    "items": 480,
+    "sha256": "0bcdd959ef0973090b385988ae809e45c027c18cab13de8082184b65c874dd84"
+   },
+   "test/mmlu_pro.jsonl.gz": {
+    "items": 240,
+    "sha256": "d4585a2d31fb5f2401a02250feda293a3ad37207e0b42568f7adc46cb8623d14"
+   },
+   "test/mnli_mismatched.jsonl.gz": {
+    "items": 240,
+    "sha256": "6d81816c8d1c6f94f52b63b8d86ecef22b65dc7049370e082f49e81b9c6de6d7"
+   },
+   "test/musique_4hop.jsonl.gz": {
+    "items": 192,
+    "sha256": "17a30bb6fea32666682977277ff6827bda50dc17525f295f41791297a2e4f5a5"
+   },
+   "test/musique_id.jsonl.gz": {
+    "items": 160,
+    "sha256": "971a654ea819618c6f37135865fbc5709849e8eb1a832887caf620821d5b8e21"
+   },
+   "test/musique_lengths.jsonl.gz": {
+    "items": 237,
+    "sha256": "796a9d2cf7b90d3902e46d071905e392daec28e785ab4f11493cd8d0ed72c7cb"
+   },
+   "test/musique_pairs_4hop.jsonl.gz": {
+    "items": 240,
+    "sha256": "2dafc4f8d6b005ed962cbc315ffdb9a704fd79d874dfdd4367b3e63bf7834168"
+   },
+   "test/musique_pairs_id.jsonl.gz": {
+    "items": 158,
+    "sha256": "c3eda0a83002ac393aa96fe61a39bc7139cae2a4b98320ff33eebc99f5392345"
+   },
+   "test/paws.jsonl.gz": {
+    "items": 200,
+    "sha256": "a632ca406fae29e27b02c588237e5747bbdf2553f44c443a103a06d38b269663"
+   },
+   "test/proofwriter_id.jsonl.gz": {
+    "items": 240,
+    "sha256": "fd801474629f22aa3f297360dc6a3ff91bf717a002274c56535a03da6e61b493"
+   },
+   "test/proofwriter_natlang.jsonl.gz": {
+    "items": 319,
+    "sha256": "ec7a606da283c926f3d4934675c62c6c6ab4749f25712162cbe98ea1326366ff"
+   },
+   "test/qnli.jsonl.gz": {
+    "items": 200,
+    "sha256": "369043f71b9e5746141b3d54ae1d9b362b96014d8e1afc8d3e2289a888592140"
+   },
+   "test/quality.jsonl.gz": {
+    "items": 240,
+    "sha256": "f8f04f9d3b39bdb8ffd7ee8a2bd3641c10306241d2a2b53de62ea7923689e27e"
+   },
+   "test/sciq.jsonl.gz": {
+    "items": 120,
+    "sha256": "6846fc44c0abf42392464a520fc1dbf2eafd53e0ffa065d411898eb28c0b274b"
+   },
+   "test/squad2_id.jsonl.gz": {
+    "items": 240,
+    "sha256": "72997275ef897a5e1afb4204fc8acd6c7b4ca59c349ce8ea6794e2074e721f84"
+   },
+   "test/sys1cal.jsonl.gz": {
+    "items": 292,
+    "sha256": "031e34fcc8b84385da847feb991393f0e0b16568e9a8d93775f3d8e033debce9"
+   },
+   "test/tweet_eval.jsonl.gz": {
+    "items": 240,
+    "sha256": "f69ba41521b74a27dbdc42b2b88077ff892c72317c4698265c59fb5f53a0ce9f"
+   },
+   "test/wanli.jsonl.gz": {
+    "items": 200,
+    "sha256": "f71ca7df11fe18f7999ba115344e96f9e49dce9822e998df92ef80363b84756e"
+   },
+   "test/yahoo_answers.jsonl.gz": {
+    "items": 160,
+    "sha256": "c0aa1e7a4d0d3d6dcd3af4db21bff333585c7f7e716c57e98b807457a0059e0c"
+   },
+   "train/chaosnli.jsonl.gz": {
+    "items": 500,
+    "sha256": "4474372e1a9adbb0e87015e83a0ded5052d36a66c470ca8df54bde18035ebee3"
+   },
+   "train/clutrr.jsonl.gz": {
+    "items": 1200,
+    "sha256": "b0c60ae69285be398392eaea77f8ea658d0d84969fb9575f39029a6aae410185"
+   },
+   "train/hotpotqa.jsonl.gz": {
+    "items": 400,
+    "sha256": "7dfc2f126ea15d59111ada0685ef09023e55e2e443e5000bb6013cc568b16b2c"
+   },
+   "train/kev_agnews.jsonl.gz": {
+    "items": 300,
+    "sha256": "75e0a96932372ded0e450715e936a8b4d3e2db550368f3e428cc7e0920b15140"
+   },
+   "train/kev_amazon.jsonl.gz": {
+    "items": 300,
+    "sha256": "f5ed83544681397f78d4376a9616956b8ce6e8991bd9e58aeed389f3c54d457d"
+   },
+   "train/kev_banking77.jsonl.gz": {
+    "items": 300,
+    "sha256": "101ac349202ad7014fbe96283b7b5b81714bbac68e7b10f777802958acb4ff06"
+   },
+   "train/kev_boolq.jsonl.gz": {
+    "items": 800,
+    "sha256": "8d13046316ddeb0ca4297726216598eb9049fa1c1476925564af836abc2f9e6d"
+   },
+   "train/kev_compositional.jsonl.gz": {
+    "items": 1110,
+    "sha256": "07bf7590e702383da18ca612b84f2b629ee512dbae634e0b5f26bee43254f33a"
+   },
+   "train/kev_dbpedia14.jsonl.gz": {
+    "items": 300,
+    "sha256": "dad36cb90cc87197405813138e30ba59e7ed3c0c277a1a5db7fe14c114d59c47"
+   },
+   "train/kev_imdb.jsonl.gz": {
+    "items": 300,
+    "sha256": "86c8b5ce4177bb661ea09a2a22f709b3557ee86074551ba58875be1f1329e11e"
+   },
+   "train/kev_legacy_policy.jsonl.gz": {
+    "items": 690,
+    "sha256": "c7de25b34bc0e425c69c45670818986dbe9afdc923ecd1ac0fbf63baf2923367"
+   },
+   "train/kev_mnli.jsonl.gz": {
+    "items": 800,
+    "sha256": "60712fa5862ab1eee7a33aba00a057be83895c37dfff2db61083240935eb92bc"
+   },
+   "train/kev_sst5.jsonl.gz": {
+    "items": 300,
+    "sha256": "d0a52da0d456bfa85ab000d921b550ad396f6948e4e8945fd6defa5dca4c7e42"
+   },
+   "train/kev_trec.jsonl.gz": {
+    "items": 300,
+    "sha256": "273b3c1572bb9f5a2ba7d7c97f8aadcc364c3b1f5b591b3457b5a17edc13d856"
+   },
+   "train/kev_yelp.jsonl.gz": {
+    "items": 300,
+    "sha256": "2cfdd7f4784f6c993e1d8903853c10c241f7a650817f5d93bc185ecb65091ba4"
+   },
+   "train/musique.jsonl.gz": {
+    "items": 1000,
+    "sha256": "498013e6426df20cc97a7ce412910a8544266ac9149b907d24dfffbbbeced2bf"
+   },
+   "train/musique_long.jsonl.gz": {
+    "items": 600,
+    "sha256": "21242754af6b80974f65867ccf798df1697805e3a2124794e7028134b5c5e920"
+   },
+   "train/musique_pairs.jsonl.gz": {
+    "items": 1000,
+    "sha256": "70044869d8b0f4da5eb8384a3e4e7973278ffc7ca6c0a5bd5620a3cdfa112db7"
+   },
+   "train/proofwriter.jsonl.gz": {
+    "items": 1500,
+    "sha256": "5308ab538b59b7d017395270584c5203ee5def141ca00c17af7337de3d0f061d"
+   },
+   "train/squad2.jsonl.gz": {
+    "items": 800,
+    "sha256": "f321311d5a53422c4464205642eaa2fb9972f53ca2b70e0f1b31ee9f95b48a29"
+   }
+  }
+ },
+ "depth_liars": {
+  "items": 26118,
+  "files": {
+   "dev/ledger.jsonl.gz": {
+    "items": 320,
+    "sha256": "ec2edca7e8157064b9c4dd663d1d3454109e7504edd826c1789a834009873c09"
+   },
+   "dev/liars.jsonl.gz": {
+    "items": 320,
+    "sha256": "d4f70dc6570b5e956c863d149c28ffba4c56d483013ae2aa277bba0040aabd5a"
+   },
+   "dev/policy.jsonl.gz": {
+    "items": 320,
+    "sha256": "8717497420374db60b23b95cd0f16e0de709935159543ed7bbca5498c8035489"
+   },
+   "dev/rooms.jsonl.gz": {
+    "items": 281,
+    "sha256": "28e943bd8d52555094b87a581f5d23655d7a78ae17d23a4e84fe57e10384c929"
+   },
+   "test/ledger.jsonl.gz": {
+    "items": 1920,
+    "sha256": "a2a2526e01dfb70af7ade174cdf8494f6e0fbcc0b57feb9379e9c5bc2d5eb497"
+   },
+   "test/liars.jsonl.gz": {
+    "items": 1920,
+    "sha256": "6cf466e1e6d6a7f1b47347f3c0413a7351f5e7ff04841fe09a4b3af1e7ae6819"
+   },
+   "test/policy.jsonl.gz": {
+    "items": 1920,
+    "sha256": "12d99c0f99ca3c1eaf6ff14325e491125d7412a0cc57e183346fe711c509ed6e"
+   },
+   "test/rooms.jsonl.gz": {
+    "items": 1781,
+    "sha256": "ceed932af927414407f1632caff7fc7fbc2b984d3f4d4160ded92b3124bf55d2"
+   },
+   "train/ledger.jsonl.gz": {
+    "items": 4480,
+    "sha256": "c61296f5e2da161e73d6e64810fec150ee4f31b7dc69d1cc3e09db42e38b2e2d"
+   },
+   "train/liars.jsonl.gz": {
+    "items": 4480,
+    "sha256": "c39f1373d94ab1317c713720f7656f8a1f335625f1ef1368e045cb2e343d9c0c"
+   },
+   "train/policy.jsonl.gz": {
+    "items": 4480,
+    "sha256": "71d153b4faa3718a509dba7c67118466c5dd723f92fb34bab92bbb8bdabd510d"
+   },
+   "train/rooms.jsonl.gz": {
+    "items": 3896,
+    "sha256": "a91cd077293560e098f1fb7944244a382b18c241e821f81fb2a82f7bc032b725"
+   }
+  }
+ },
+ "depth_swaps": {
+  "items": 6720,
+  "files": {
+   "dev/shuffle.jsonl.gz": {
+    "items": 320,
+    "sha256": "5967771705bc21680dc4e79ee826aa503073f1d28407601828f2997609e7d1f7"
+   },
+   "test/shuffle.jsonl.gz": {
+    "items": 1920,
+    "sha256": "cb6e9a3a54ef29701bdb1ab1cf325b5ced62816ce84a78f3b50bbda3bec0846e"
+   },
+   "train/shuffle.jsonl.gz": {
+    "items": 4480,
+    "sha256": "d8c620143219241081bba7acbd65c12c42b686811e41d6d9d40895934fec7db0"
+   }
+  }
+ }
+}
